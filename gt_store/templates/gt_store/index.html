@@ -1,298 +1,339 @@
 {% extends 'gt_store/base_general.html' %}
 {% load static %}
 {% block contenido %}
-<!--Carrousel-->
+
+<!-- Hero Banner -->
 <div class="owl-carousel owl-theme " id="carousel1">
     <div class="item">
         <div class="image-container1 d-flex justify-content-center">
-            <img src="{% static 'gt_store/img/Banner/banner3.png' %}" class="d-block imgBanner" alt="...">
+            <img src="{% static 'gt_store/img/Banner/HERRAMIENTAS.png' %}" class="d-block imgBanner" alt="...">
         </div>
     </div>
     <div class="item">
         <div class="image-container1 d-flex justify-content-center">
             <!--img banner2-->
-            <img src="{% static 'gt_store/img/Banner/a (1).png' %} " class="d-block imgBanner" alt="...">
+            <img src="{% static 'gt_store/img/Banner/FF8C00.png' %} " class="d-block imgBanner" alt="...">
         </div>
     </div>
     <div class="item">
         <div class="image-container1 d-flex justify-content-center">
             <!--a-->
-            <img src="{% static 'gt_store/img/Banner/banner2.png' %}" class="d-block imgBanner" alt="...">
+            <img src="{% static 'gt_store/img/Banner/HERRAMIENTAS.png' %}" class="d-block imgBanner" alt="...">
         </div>
     </div>
 </div>
-<!--Cards-->
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1"></div>
-        <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 p-5">
-            <h1 class=" pt-5 text-center text-black">Destacados en PC Gamer</h1>
-            <div class="border-bottom  titleH2 mx-auto"></div>
-            <div class="owl-carousel owl-theme pt-5">
-                {% for pc in pcs_destacados %}
+<!-- Product Categories -->
+<div class="container-fluid py-5 bg-light">
+    <!-- Herramientas Manuales -->
+    <div class="row px-lg-5">
+        <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2 class="section-title">Herramientas Manuales</h2>
+                <a href="#" class="btn btn-outline-orange">Ver todo</a>
+            </div>
+            
+            <div class="owl-carousel owl-theme product-carousel">
+                {% for producto in herramientas_manuales %}
                 <div class="item">
-                    <div class="cards-wrapper position-relative">
-                        <a href="{% url 'detalle_producto' pc.id_producto %}" class="stretched-link text-decoration-none">
-                            <div class="card border-0">
-                                <a href="#">
-                                    <div class="image-container">
-                                        <img src="{{ pc.imagen.url }}" class="card-img-top main-image" alt="">
-                                    </div>
-                                </a>
-                                <div class="card-body" style="height: 300px;">
-                                    <h6 class="fw-bold">{{ pc.marca }}</h6>
-                                    <div class="position-relative" style="height: 86.1px;">
-                                        <p class="productDesc">{{ pc.descripcion }}</p>
-                                    </div>
-                                    <div>
-                                        {% if pc.descuento is not 0 or pc.precio_anterior is not 0 %}
-                                        <div class="priceContainer d-flex position-absolute dsctoTarget">
-                                            {% if pc.descuento is not 0 %}
-                                                <span class="dscto">{{ pc.descuento }}% DCTO.</span>
-                                            {% endif %}
-                                            {% if pc.precio_anterior is not 0 %}
-                                                <span class="old-price oldPrice" data-precio-anterior="{{pc.precio_anterior}}"></span>
-                                            {% endif %}
-                                        </div>
-                                        {% endif %}
-                                        <div class="position-relative pt-4">
-                                            <p class="price" data-precio-transferencia="{{pc.precio_transferencia}}"></p>
-                                            <p class="transf fw">Transferencia</p>
-                                            <p class="price" data-precio-normal="{{pc.precio_normal}}"></p>
-                                            <p class="otro fw">Otro medio de pago</p>
-                                        </div>
-                                    </div>
+                    <div class="product-card">
+                        <div class="product-badge">
+                            {% if producto.descuento %}
+                            <span class="badge" style="background-color: #FF8C00; color: white;">-{{ producto.descuento }}%</span>
+                            {% endif %}
+                        </div>
+                        <a href="{% url 'detalle_producto' producto.codigo %}" class="product-link">
+                            <div class="product-img-container">
+                                <img src="{% if producto.imagen %}{{ producto.imagen }}{% else %}{% static 'gt_store/img/placeholder-product.png' %}{% endif %}" 
+                                     class="product-img" 
+                                     alt="{{ producto.nombre}}">
+                            </div>
+                            <div class="product-body">
+                                <span class="product-brand">{{ producto.marca|default:"Marca" }}</span>
+                                <h5 class="product-title">{{ producto.nombre }}</h5>
+                                <div class="product-desc">
+                                    <p>{{ producto.descripcion|default:"Descripción no disponible"|truncatechars:60 }}</p>
+                                </div>
+                                <div class="product-price">
+                                    {% if producto.precio_anterior %}
+                                    <span class="old-price">${{ producto.precio_anterior }}</span>
+                                    {% endif %}
+                                    <span class="current-price">${{ producto.precio }}</span>
                                 </div>
                             </div>
                         </a>
                     </div>
                 </div>
+                {% empty %}
+                <div class="col-12 text-center py-4">
+                    <div class="alert alert-warning mb-0">No se encontraron productos</div>
+                </div>
                 {% endfor %}
             </div>
         </div>
     </div>
-    <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1"></div>
 </div>
 
-<!--Banner2-->
-<div class="banner-container d-flex justify-content-center p-5">
-    <img src="{% static 'gt_store/img/Banner/banner-potencial.png' %}" class="d-block banner-image" alt="...">
+<!-- Promo Banner -->
+<div class="promo-banner py-4">
+    <div class="container">
+        <img src="{% static 'gt_store/img/Banner/caca.png' %}" class="img-fluid rounded-3 shadow" alt="Promoción especial">
+    </div>
 </div>
 
-<!--Cards 2-->
-<div class="container-fluid ">
-    <div class="row">
-        <div class="col-1"></div>
-        <div class="col-sm-10 col-md-10 col-lg-10">
-            <h1 class=" pt-5 text-center text-black">Potencia tu PC</h1>
-            <div class="border-bottom  titleH2 mx-auto"></div>
-            <div class="owl-carousel owl-theme pt-5">
-                {% for poten in potencia  %}
+<!-- Materiales Básicos -->
+<div class="container-fluid py-5">
+    <div class="row px-lg-5">
+        <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2 class="section-title">Materiales Básicos</h2>
+                <a href="#" class="btn btn-outline-orange">Ver todo</a>
+            </div>
+            
+            <div class="owl-carousel owl-theme product-carousel">
+                {% for producto in materiales_basicos %}
                 <div class="item">
-                    <div class="cards-wrapper position-relative">
-                        <a href="{% url 'detalle_producto' poten.id_producto %}" class="stretched-link text-decoration-none">
-
-                            <div class="card border-0">
-                                <a href="#">
-                                    <div class="image-container">
-                                        <img src="{{ poten.imagen.url }}" class="card-img-top main-image" alt="">
-                                    </div>
-                                </a>
-                                <div class="card-body" style="height: 300px;">
-                                    <h6 class="fw-bold">{{ poten.marca }}</h6>
-                                    <div class="position-relative" style="height: 86.1px;">
-                                        <p class="productDesc">{{ poten.descripcion }}</p>
-                                    </div>
-                                    <div>
-                                        {% if poten.descuento is not 0 or poten.precio_anterior is not 0 %}
-                                        <div class="priceContainer d-flex position-absolute dsctoTarget">
-                                            {% if poten.descuento is not 0 %}
-                                                <span class="dscto">{{ poten.descuento }}% DCTO.</span>
-                                            {% endif %}
-                                            {% if poten.precio_anterior is not 0 %}
-                                                <span class="old-price oldPrice" data-precio-anterior="{{ poten.precio_anterior }}"></span>
-                                            {% endif %}
-                                        </div>
-                                        {% endif %}
-                                        <div class="position-relative pt-4">
-                                            <p class="price" data-precio-transferencia="{{poten.precio_transferencia}}"></p>
-                                            <p class="transf fw">Transferencia</p>
-                                            <p class="price" data-precio-normal="{{poten.precio_normal}}"></p>
-                                            <p class="otro fw">Otro medio de pago</p>
-                                        </div>
-                                    </div>
+                    <div class="product-card">
+                        <div class="product-badge">
+                            {% if producto.descuento %}
+                            <span class="badge" style="background-color: #FF8C00; color: white;">-{{ producto.descuento }}%</span>
+                            {% endif %}
+                        </div>
+                        <a href="{% url 'detalle_producto' producto.codigo %}" class="product-link">
+                            <div class="product-img-container">
+                                <img src="{% if producto.imagen %}{{ producto.imagen }}{% else %}{% static 'gt_store/img/placeholder-product.png' %}{% endif %}" 
+                                     class="product-img" 
+                                     alt="{{ producto.nombre}}">
+                            </div>
+                            <div class="product-body">
+                                <span class="product-brand">{{ producto.marca|default:"Marca" }}</span>
+                                <h5 class="product-title">{{ producto.nombre }}</h5>
+                                <div class="product-desc">
+                                    <p>{{ producto.descripcion|default:"Descripción no disponible"|truncatechars:60 }}</p>
+                                </div>
+                                <div class="product-price">
+                                    {% if producto.precio_anterior %}
+                                    <span class="old-price">${{ producto.precio_anterior }}</span>
+                                    {% endif %}
+                                    <span class="current-price">${{ producto.precio }}</span>
                                 </div>
                             </div>
                         </a>
                     </div>
                 </div>
+                {% empty %}
+                <div class="col-12 text-center py-4">
+                    <div class="alert alert-warning mb-0">No se encontraron productos</div>
+                </div>
                 {% endfor %}
             </div>
         </div>
-        <div class="col-1"></div>
     </div>
 </div>
 
-
-<!--Banner2-->
-<div class="banner-container d-flex justify-content-center p-5">
-    <img src="{% static 'gt_store/img/Banner/banner-potencial.png' %}" class="d-block banner-image" alt="...">
+<div class="promo-banner py-4">
+    <div class="container">
+        <img src="{% static 'gt_store/img/Banner/caca.png' %}" class="img-fluid rounded-3 shadow" alt="Promoción especial">
+    </div>
 </div>
 
-<!--Cards 3-->
-<div class="container-fluid ">
-    <div class="row">
-        <div class="col-1"></div>
-        <div class="col-sm-10 col-md-10 col-lg-10">
-            <h1 class=" pt-5 text-center text-black">Notebooks Gamer</h1>
-            <div class="border-bottom  titleH2 mx-auto"></div>
-            <div class="owl-carousel owl-theme pt-5">
-                {% for note in notebooks  %}
+<!-- Equipos de Seguridad -->
+<div class="container-fluid py-5 bg-light">
+    <div class="row px-lg-5">
+        <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2 class="section-title">Equipos de Seguridad</h2>
+                <a href="#" class="btn btn-outline-orange">Ver todo</a>
+            </div>
+            
+            <div class="owl-carousel owl-theme product-carousel">
+                {% for producto in equipos_de_seguridad %}
                 <div class="item">
-                    <div class="cards-wrapper position-relative">
-                        <a href="{% url 'detalle_producto' note.id_producto %}" class="stretched-link text-decoration-none">
-                            <div class="card border-0">
-                                <a href="#">
-                                    <div class="image-container">
-                                        <img src="{{ note.imagen.url }}" class="card-img-top main-image" alt="">
-                                    </div>
-                                </a>
-                                <div class="card-body" style="height: 300px;">
-                                    <h6 class="fw-bold">{{ note.marca }}</h6>
-                                    <div class="position-relative" style="height: 86.1px;">
-                                        <p class="productDesc">{{ note.descripcion }}</p>
-                                    </div>
-                                    <div>
-                                        {% if note.descuento is not 0 or note.precio_anterior is not 0 %}
-                                        <div class="priceContainer d-flex position-absolute dsctoTarget">
-                                            {% if note.descuento is not 0 %}
-                                                <span class="dscto">{{ note.descuento }} DCTO.</span>
-                                            {% endif %}
-                                            {% if note.precio_anterior is not 0 %}
-                                                <span class="old-price oldPrice" data-precio-anterior="{{ note.precio_anterior }}"></span>
-                                            {% endif %}
-                                        </div>
-                                        {% endif %}
-                                        <div class="position-relative pt-4">
-                                            <p class="price" data-precio-transferencia="{{ note.precio_transferencia }}"></p>
-                                            <p class="transf fw">Transferencia</p>
-                                            <p class="price" data-precio-normal="{{note.precio_normal}}"></p>
-                                            <p class="otro fw">Otro medio de pago</p>
-                                        </div>
-                                    </div>
+                    <div class="product-card">
+                        <div class="product-badge">
+                            {% if producto.descuento %}
+                            <span class="badge" style="background-color: #FF8C00; color: white;">-{{ producto.descuento }}%</span>
+                            {% endif %}
+                        </div>
+                        <a href="{% url 'detalle_producto' producto.codigo %}" class="product-link">
+                            <div class="product-img-container">
+                                <img src="{% if producto.imagen %}{{ producto.imagen }}{% else %}{% static 'gt_store/img/placeholder-product.png' %}{% endif %}" 
+                                     class="product-img" 
+                                     alt="{{ producto.nombre}}">
+                            </div>
+                            <div class="product-body">
+                                <span class="product-brand">{{ producto.marca|default:"Marca" }}</span>
+                                <h5 class="product-title">{{ producto.nombre }}</h5>
+                                <div class="product-desc">
+                                    <p>{{ producto.descripcion|default:"Descripción no disponible"|truncatechars:60 }}</p>
+                                </div>
+                                <div class="product-price">
+                                    {% if producto.precio_anterior %}
+                                    <span class="old-price">${{ producto.precio_anterior }}</span>
+                                    {% endif %}
+                                    <span class="current-price">${{ producto.precio }}</span>
                                 </div>
                             </div>
                         </a>
                     </div>
                 </div>
-                {% endfor %}
-            </div>
-        </div>
-        <div class="col-1"></div>
-    </div>
-</div>
-
-<!--Banner4-->
-<div class="banner-container d-flex justify-content-center p-5">
-    <img src="{% static 'gt_store/img/Banner/banner-potencial.png' %}" class="d-block banner-image" alt="...">
-</div>
-
-<!--Cards 4-->
-<div class="container-fluid ">
-    <div class="row">
-        <div class="col-1"></div>
-        <div class="col-sm-10 col-md-10 col-lg-10">
-            <h1 class="pt-5 text-center text-black">Lo mejor de Razer</h1>
-            <div class="border-bottom  titleH2 mx-auto"></div>
-            <div class="owl-carousel owl-theme pt-5 pb-5">
-                {% for r in p_razer %}
-                <div class="item">
-                    <div class="cards-wrapper position-relative">
-                        <a href="{% url 'detalle_producto' r.id_producto %}" class="stretched-link text-decoration-none">
-                            <div class="card border-0">
-                                <a href="#">
-                                    <div class="image-container">
-                                        <img src="{{ r.imagen.url }}" class="card-img-top main-image" alt="">
-                                    </div>
-                                </a>
-                                <div class="card-body" style="height: 300px;">
-                                    <h6 class="fw-bold">{{ r.marca }}</h6>
-                                    <div class="position-relative" style="height: 86.1px;">
-                                        <p class="productDesc">{{ r.descripcion }}</p>
-                                    </div>
-                                    <div>
-                                        {% if r.descuento is not 0 or p.precio_anterior is not 0 %}
-                                        <div class="priceContainer d-flex position-absolute dsctoTarget">
-                                            {% if r.descuento is not 0 %}
-                                                <span class="dscto">{{ r.descuento }}% DCTO.</span>
-                                            {% endif %}
-                                            {% if r.precio_anterior is not 0 %}
-                                                <span class="old-price oldPrice" data-precio-anterior="{{r.precio_anterior}}"></span>
-                                            {% endif %}
-                                        </div>
-                                        {% endif %}
-                                        <div class="position-relative pt-4">
-                                            <p class="price" data-precio-transferencia="{{r.precio_transferencia}}"></p>
-                                            <p class="transf fw">Transferencia</p>
-                                            <p class="price" data-precio-normal="{{r.precio_normal}}"></p>
-                                            <p class="otro fw">Otro medio de pago</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
+                {% empty %}
+                <div class="col-12 text-center py-4">
+                    <div class="alert alert-warning mb-0">No se encontraron productos</div>
                 </div>
                 {% endfor %}
             </div>
         </div>
-        <div class="col-1"></div>
     </div>
 </div>
 
-<!--Reviews-->
-<div class="container">
-    <div id="slick-carousel-reviews" class="row position-relative">
-        <!-- Las reseñas se agregarán aquí -->
-    </div>
-</div>
+<style>
+    /* Estilos generales */
+    .hero-banner {
+        margin-top: -1rem;
+        overflow: hidden;
+    }
+    
+    .section-title {
+        font-weight: 700;
+        color: #333;
+        position: relative;
+        padding-bottom: 10px;
+    }
+    
+    .section-title:after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 60px;
+        height: 3px;
+        background-color: #FF8C00;
+    }
+    
+    .btn-outline-orange {
+        color: #FF8C00;
+        border-color: #FF8C00;
+    }
+    
+    .btn-outline-orange:hover {
+        background-color: #FF8C00;
+        color: white;
+    }
+    
+    /* Tarjetas de producto */
+    .product-card {
+        background: white;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        transition: all 0.3s ease;
+        height: 100%;
+        position: relative;
+    }
+    
+    .product-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+    }
+    
+    .product-link {
+        text-decoration: none;
+        color: inherit;
+    }
+    
+    .product-img-container {
+        height: 200px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 15px;
+        background: white;
+    }
+    
+    .product-img {
+        max-height: 100%;
+        max-width: 100%;
+        object-fit: contain;
+        transition: transform 0.3s ease;
+    }
+    
+    .product-card:hover .product-img {
+        transform: scale(1.05);
+    }
+    
+    .product-body {
+        padding: 15px;
+    }
+    
+    .product-brand {
+        font-size: 0.85rem;
+        color: #666;
+        font-weight: 600;
+        display: block;
+        margin-bottom: 5px;
+    }
+    
+    .product-title {
+        font-size: 1rem;
+        font-weight: 600;
+        margin-bottom: 10px;
+        height: 40px;
+        overflow: hidden;
+    }
+    
+    .product-desc {
+        font-size: 0.85rem;
+        color: #666;
+        height: 40px;
+        overflow: hidden;
+        margin-bottom: 15px;
+    }
+    
+    .product-price {
+        margin-top: 10px;
+    }
+    
+    .current-price {
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: #FF8C00;
+    }
+    
+    .old-price {
+        font-size: 0.9rem;
+        text-decoration: line-through;
+        color: #999;
+        margin-right: 8px;
+    }
+    
+    .product-badge {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        z-index: 2;
+    }
+    
+    /* Carousel */
+    .product-carousel .owl-nav {
+        position: absolute;
+        top: -60px;
+        right: 0;
+    }
+    
+    .product-carousel .owl-nav button {
+        width: 36px;
+        height: 36px;
+        border-radius: 50% !important;
+        background: #f8f9fa !important;
+        margin-left: 10px;
+        transition: all 0.3s;
+    }
+    
+    .product-carousel .owl-nav button:hover {
+        background: #FF8C00 !important;
+        color: white !important;
+    }
+</style>
 
-<!--Slider-->
-<div class="slider align-items-center">
-    <div class="slide-track  align-items-center">
-        <div class="slide">
-            <img src="{%static 'gt_store/img/Logos/Slider/1.png' %}" alt="">
-        </div>
-        <div class="slide">
-            <img src="{%static 'gt_store/img/Logos/Slider/2.png' %}" alt="">
-        </div>
-        <div class="slide">
-            <img src="{%static 'gt_store/img/Logos/Slider/3.png' %}" alt="">
-        </div>
-        <div class="slide">
-            <img src="{%static 'gt_store/img/Logos/Slider/4.png' %}" alt="">
-        </div>
-        <div class="slide">
-            <img src="{%static 'gt_store/img/Logos/Slider/5.png' %}" alt="">
-        </div>
-        <div class="slide">
-            <img src="{%static 'gt_store/img/Logos/Slider/6.png' %}" alt="">
-        </div>
-        <div class="slide">
-            <img src="{%static 'gt_store/img/Logos/Slider/7.png' %}" alt="">
-        </div>
-        <div class="slide">
-            <img src="{%static 'gt_store/img/Logos/Slider/8.png' %}" alt="">
-        </div>
-        <div class="slide">
-            <img src="{%static 'gt_store/img/Logos/Slider/9.png' %}" alt="">
-        </div>
-        <div class="slide">
-            <img src="{%static 'gt_store/img/Logos/Slider/10.png' %}" alt="">
-        </div>
-        <div class="slide">
-            <img src="{%static 'gt_store/img/Logos/Slider/11.png' %}" alt="">
-        </div>
-    </div>
-</div>
+
 {% endblock %}

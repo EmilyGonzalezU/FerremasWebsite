@@ -18,7 +18,7 @@
     }
   
     .banner-image {
-        max-width: 100vw;
+        max-width: 50vw;
         height: auto; 
     }
 
@@ -45,7 +45,7 @@
         border: 1px solid ;
         border-radius: 5px;
         padding: 3px;
-        background-color: #00e6fa;
+        background-color: #FF8C00 !important;
         color: white;
         font-size: 13px;
         font-weight: bold;
@@ -58,7 +58,7 @@
 
     .price{
         font-size: 20px;
-        color: #E22F89;
+        color: #FF8C00 !important;
         margin: 0;
         font-weight:bold ;
     }
@@ -144,7 +144,7 @@
         border: 1px solid ;
         border-radius: 5px;
         padding: 3px;
-        background-color: #00e6fa;
+        background-color: #FF8C00 !important;
         color: white;
         font-size: 10px;
         font-weight: bold;
@@ -157,7 +157,7 @@
 
     .price{
         font-size: 20px;
-        color: #E22F89;
+       color: #FF8C00 !important;
         margin: 0;
         font-weight:bold ;
     }
@@ -248,7 +248,7 @@
         border: 1px solid ;
         border-radius: 5px;
         padding: 3px;
-        background-color: #00e6fa;
+        background-color: #FF8C00 !important;
         color: white;
         font-size: 13px;
         font-weight: bold;
@@ -261,7 +261,7 @@
 
     .price{
         font-size: 15px;
-        color: #E22F89;
+        color: #FF8C00 !important;
         margin: 0;
         font-weight:bold ;
     }
@@ -299,7 +299,7 @@
     
     /*NavBar*/
     .navBarLg{
-        background-color: black;
+        background-color: #131a55;
     }
     
     .navBarLg {
@@ -307,8 +307,9 @@
     }
 
     .imgLogoLg{
-        width: 190px;
+        width: 100px;
         margin-left: 500px;
+        padding-top: 20px;
     }
     
     .navBarmd {
@@ -324,19 +325,12 @@
     }
 
     /*Banners*/
-    .image-container11{
+    .image-container{
         max-width: 50% ;
-        height: 20%;
     }
    
     
-    
-    .banner-image {
-        width: 80vw;
-        height: 35vh;
-        padding-top: 20px;
-        justify-content: center;
-    }
+
     
     /*Cards*/
     .cards-wrapper {
@@ -354,7 +348,7 @@
 
     .price{
         font-size: 23px;
-        color: #E22F89;
+        color: #FF8C00 !important;
         margin: 0;
         font-weight:bold ;
     }
@@ -367,7 +361,7 @@
         border: 1px solid ;
         border-radius: 5px;
         padding: 3px;
-        background-color: #00e6fa;
+        background-color: #FF8C00 !important;
         color: white;
         font-size: 10px;
         font-weight: bold;
@@ -420,7 +414,7 @@
     }
 
     .d-grid .btn-primary:hover{
-        background-color: #00e6fa;
+        background-color: #FF8C00;
         border: none;
     }
 
@@ -433,7 +427,7 @@
 
 /*Superior bar*/
 .supBarr{
-    background-color: #00e6fa;
+    background-color: #FF8C00;
     color: white;
 }
 
@@ -453,7 +447,7 @@ h1{
 }
 
 .bi{
-    color: #00e6fa;
+    color: #FF8C00;
     
     
 }
@@ -461,7 +455,7 @@ h1{
 
 /*Body2*/
 .titleH2{
-    border: 10px solid #00e6fa;
+    border: 10px solid #FF8C00;
     border-width: 6px ;
     width: 200px;
     text-align: center;
@@ -525,9 +519,9 @@ h1{
 
 /*Footer*/
 .footerLine{
-    border: 2px solid #00e6fa;
+    border: 4px solid #FF8C00;
     width: 50px;
-    background-color: #00e6fa;
+    background-color: #FF8C00;
     text-align: center;
     display: inline-block;
     border-radius: 3px;
@@ -536,7 +530,7 @@ h1{
 
 .input-group input:focus,
 .form-control:focus {
-    border-color: #ced4da; 
+    border-color: #FF8C00; 
     box-shadow: none; 
 }
 

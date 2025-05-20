@@ -6,6 +6,45 @@ from django.contrib import messages
 from .models import  ProductoPedido
 from .forms import PedidoForm
 from usuarios.models import  PerfilUsuario
+import requests
+import logging
+import requests
+
+logger = logging.getLogger(__name__)
+
+def detalle_producto(request, codigo):
+    api_url = f"http://localhost:5000/api/productos?codigo={codigo}"
+    headers = {"Authorization": "0db5b48e-0027-4ace-9ed8-6a04cd3cd292"}
+    
+    try:
+        response = requests.get(api_url, headers=headers)
+        response.raise_for_status()
+        
+        productos = response.json()
+        
+        # Verifica si se encontró el producto
+        if not productos or not isinstance(productos, list):
+            logger.error(f"Producto no encontrado: {codigo}")
+            return render(request, 'gt_store/error.html', {
+                'mensaje': 'Producto no encontrado'
+            })
+            
+        producto = productos[0]
+        
+        return render(request, 'gt_store/detalle_productos.html', {
+            'producto': producto
+        })
+        
+    except requests.exceptions.RequestException as e:
+        logger.error(f"Error de conexión: {str(e)}")
+        return render(request, 'gt_store/error.html', {
+            'mensaje': 'Error al conectar con el servidor de productos'
+        })
+    except (ValueError, IndexError, KeyError) as e:
+        logger.error(f"Error procesando datos: {str(e)}")
+        return render(request, 'gt_store/error.html', {
+            'mensaje': 'Error al procesar la información del producto'
+        })
 
 class Carrito:
     def __init__(self, request):
@@ -19,21 +58,19 @@ class Carrito:
             self.carrito = carrito
 
     def agregar(self, producto):
-        id = str(producto.id_producto)
+        id = str(producto.codigo)
         if id not in self.carrito.keys():
             self.carrito[id] = {
-                "producto_id": producto.id_producto,
-                "imagen": producto.imagen.url,
-                "nombre": producto.nombre_producto,
+                "producto_id": producto.codigo,
+                "imagen": producto.imagen,
+                "nombre": producto.nombre,
                 "stock": producto.stock,
-                "acumulado_transferencia": producto.precio_transferencia,
-                "acumulado_normal": producto.precio_normal,
+                "acumulado_transferencia": producto.precio,
                 "cantidad": 1,
             }
         else:
             self.carrito[id]["cantidad"] += 1
-            self.carrito[id]["acumulado_transferencia"] += producto.precio_transferencia
-            self.carrito[id]["acumulado_normal"] += producto.precio_normal
+            self.carrito[id]["acumulado_transferencia"] += producto.precio
 
         self.guardar_carrito()
 
@@ -65,9 +102,9 @@ def tienda(request):
     productos = Product.objects.all()
     return render(request, "GatoTech/index.html", {'productos': productos})
 
-def agregar_producto(request, id_producto):
+def agregar_producto(request, codigo):
     carrito = Carrito(request)
-    producto = get_object_or_404(Product, id_producto=id_producto)
+    producto = get_object_or_404(Product, codigo=codigo)  # ✅ Use `codigo` instead of `id_producto`
     carrito.agregar(producto)
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 

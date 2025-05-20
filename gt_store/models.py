@@ -18,7 +18,7 @@ class Product(models.Model):
     ]
 
 
-    id_producto = models.AutoField(primary_key=True)
+    id_producto = models.CharField(max_length=60, primary_key=True)
     marca = models.CharField(max_length=60, blank=False, null=False)
     nombre_producto = models.CharField(max_length=60, blank=False, null=False, default='nombre_producto')
     descripcion = models.CharField(max_length=100, blank=False, null=True)

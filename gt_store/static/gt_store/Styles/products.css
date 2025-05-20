@@ -16,7 +16,7 @@
     }  
 
     .price {
-        color: #E22F89;
+        color: black;
         margin: 0;
         font-weight: bold;
     }
@@ -29,7 +29,7 @@
         border: 1px solid;
         border-radius: 5px;
         padding: 3px;
-        background-color: #00e6fa;
+        background-color: #FF8C00;
         color: white;
         font-size: 10px;
         font-weight: bold;
@@ -57,7 +57,7 @@
     }
 
     .price {
-        color: #E22F89;
+        color: black;
         margin: 0;
         font-weight: bold;
     }
@@ -70,7 +70,7 @@
         border: 1px solid;
         border-radius: 5px;
         padding: 3px;
-        background-color: #00e6fa;
+        background-color: #FF8C00;
         color: white;
         font-size: 10px;
         font-weight: bold;
@@ -98,7 +98,7 @@
     }
 
     .price {
-        color: #E22F89;
+        color: black;
         margin: 0;
         font-weight: bold;
         font-size: 20px;
@@ -112,7 +112,7 @@
         border: 1px solid;
         border-radius: 5px;
         padding: 3px;
-        background-color: #00e6fa;
+        background-color: FF8C00;
         color: white;
         font-size: 7px;
         font-weight: bold;
@@ -140,7 +140,7 @@
     }
 
     .price {
-        color: #E22F89;
+        color: black;
         margin: 0;
         font-weight: bold;
         font-size: 21px;
@@ -154,7 +154,7 @@
         border: 1px solid;
         border-radius: 5px;
         padding: 3px;
-        background-color: #00e6fa;
+        background-color: FF8C00;
         color: white;
         font-size: 10px;
         font-weight: bold;

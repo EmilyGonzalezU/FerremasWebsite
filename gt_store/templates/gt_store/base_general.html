@@ -1,121 +1,399 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block tittle %}{% endblock %}</title>
+    <title>{% block tittle %}FerreMas - Herramientas y Materiales{% endblock %}</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" href="{% static 'gt_store/img/Logos/FERREMAS.png' %}" type="image/x-icon">
+    
+    <!-- Font Awesome -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
-
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <!--CSS-->
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Google Fonts - Montserrat -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Owl Carousel -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
+    
+    <!-- Slick Carousel -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css">
+    
+    <!-- Custom CSS -->
     <link rel="stylesheet" href="{% static 'gt_store/Styles/style.css' %}">
     <link rel="stylesheet" href="{% static 'gt_store/Styles/products.css' %}">
     <link rel="stylesheet" href="{% static 'gt_store/Styles/menu.css' %}">
-    <!--MontserratFont-->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-    <!--Owl carousel CDN-->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" integrity="sha512-tS3S5qG0BlhnQROyJXvNjeEM4UpMXHrQfTGmbQ1gKmelCxlSEBUaxhRBj/EFTzpbP4RVSrpEikbmdJobCvhE3g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css" integrity="sha512-sMXtMNL1zRzolHYKEujM2AqCLUR9F2C4/05cdbxjjLSRvMQIciEPCQZo++nk7go3BtSuK9kfa/s+a4f4i5pLkw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-     <!--Icon-->
-     <link rel="icon" href="{% static 'gt_store/img/Logos/2.png' %}" type="image/x-icon">
-      <!-- Slick Carousel CSS -->
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css" />
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css" />
+    
+    <style>
+        :root {
+            --primary-color: #FF8C00;
+            --secondary-color: #131a55;
+            --light-color: #f8f9fa;
+            --dark-color: #212529;
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #f5f5f5;
+        }
+        
+        /* Header Styles */
+        .main-header {
+            background-color: var(--secondary-color);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .navbar-brand img {
+            height: 50px;
+            transition: transform 0.3s;
+        }
+        
+        .navbar-brand img:hover {
+            transform: scale(1.05);
+        }
+        
+        .search-box {
+            max-width: 600px;
+        }
+        
+        .search-input {
+            border-radius: 25px 0 0 25px;
+            border-right: none;
+        }
+        
+        .search-btn {
+            border-radius: 0 25px 25px 0;
+            background-color: var(--primary-color);
+            color: white;
+            border-left: none;
+        }
+        
+        .nav-icon {
+            font-size: 1.5rem;
+            color: white;
+            transition: color 0.3s;
+            position: relative;
+        }
+        
+        .nav-icon:hover {
+            color: var(--primary-color);
+        }
+        
+        .cart-count {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            font-size: 0.7rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        /* Mega Menu Styles */
+        .mega-menu {
+            background-color: white;
+            border-top: 3px solid var(--primary-color);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            
+        }
+        
+        .nav-link {
+            font-weight: 500;
+            color: var(--dark-color);
+            padding: 1rem 1.5rem;
+            transition: color 0.3s;
+        }
+        
+        .nav-link:hover, .nav-link:focus {
+            color: var(--primary-color);
+        }
+        
+        .dropdown-mega:hover .nav-link {
+            color: var(--primary-color);
+        }
+        
+        .mega-content {
+            padding: 2rem 0;
+        }
+        
+        .mega-content h5 {
+            color: var(--primary-color);
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        
+        .list-group-item {
+            border: none;
+            padding: 0.5rem 0;
+            color: var(--dark-color);
+            transition: color 0.3s;
+        }
+        
+        .list-group-item:hover {
+            color: var(--primary-color);
+            background: none;
+        }
+        
+        /* Footer Styles */
+        .main-footer {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+        
+        .footer-logo {
+            max-height: 70px;
+        }
+        
+        .footer-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+        
+        .footer-title::after {
+            content: '';
+            position: absolute;
+            bottom: -0.5rem;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background-color: var(--primary-color);
+        }
+        
+        .footer-link {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            transition: color 0.3s;
+            margin-bottom: 0.5rem;
+            display: inline-block;
+        }
+        
+        .footer-link:hover {
+            color: white;
+        }
+        
+        #map {
+            height: 200px;
+            width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        /* User Info Styles */
+        .user-info {
+            display: flex;
+            flex-direction: column;
+            margin-right: 1rem;
+        }
+        
+        .user-greeting {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: white;
+        }
+        
+        .user-account {
+            font-size: 0.8rem;
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .user-account:hover {
+            color: white;
+            text-decoration: underline;
+        }
+
+        .dropdown-menu {
+            z-index: 9999 !important;
+            position: absolute !important;
+        }
+    </style>
 </head>
 <body>
-     <!--Superior Barr-->
-     <div class="container-fluid text-center">
-        <div class="row align-items-start supBarr">
-            <div class="col-12">
-                <nav>
-                    <h6 class="">¡Envio gratis en la primera compra!</h6>
-                </nav>
-            </div>
-        </div>
-    </div>
-
-    <!--NavBarLg-->
-    <div class="container-fluid text-center  navBarLg">
-        <div class="row align-items-start">
-            <nav class="navbar pe-2 ">
-                <div class="col-md-3 mb-3 col-xl-3">
-                    <div class="container-fluid d-flex justify-content-center">
-                        <a class="navbar-brand" href="{% url 'home' %}">
-                            <img src="{% static 'gt_store/img/Logos/GatoTechLogo.png' %}" alt="Logo" class="ms-5 imgLogoLg" id="imgLogo">
-                        </a>
-                    </div>
+    <header class="main-header sticky-top">
+        <div class="container py-2">
+            <div class="row align-items-center">
+                <div class="col-lg-3 col-md-4 col-6">
+                    <a class="navbar-brand" href="{% url 'inicio' %}">
+                        <img src="{% static 'gt_store/img/Logos/FERREMAS.png' %}" alt="FerreMas" class="img-fluid">
+                    </a>
                 </div>
-
-                <div class="col-xs-3col-md-6 col-xl-6">
-                    <div class="container-fluid d-flex justify-content-center">
-                        <form class="d-flex w-100 p-0">
-                            <input class="form-control me-2 m-2" type="search" placeholder="Encuentra lo que necesitas"
-                                aria-label="Search">
-                            <button class="btn btnSearch border-1" type="submit">
-                                <i class="bi bi-search fs-2 iconNav"></i>
-                            </button>
-                        </form>
-                    </div>
+                
+                <div class="col-lg-6 col-md-5 d-none d-md-block">
+                    <form class="d-flex search-box">
+                        <input class="form-control search-input" type="search" placeholder="Buscar productos..." aria-label="Search">
+                        <button class="btn search-btn" type="submit">
+                            <i class="bi bi-search text-white"></i>
+                        </button>
+                    </form>
                 </div>
-                <div class="col-md-3 col-xl-3">
-                    <div class="container-fluid d-flex justify-content-center align-items-center">
+                
+                <div class="col-lg-3 col-md-3 col-6 text-end">
+                    <div class="d-flex align-items-center justify-content-end">
                         {% if request.session.user_nombre %}
-                            <a href="{% url 'login_usuario' %}"><button type="button" class="btn">
-                                <i class="bi bi-person fs-1 me-3 iconNav ms-2"></i>
-                            </button></a>
-                            <div class="user-info">
+                            <div class="user-info me-3">
                                 <span class="user-greeting">Hola, {{ request.session.user_nombre }}</span>
-                                <a href="{% url 'cerrar_sesion' %}" class="user-account">Cerrar Sesión</a>
+                                <a href="{% url 'cerrar_sesion' %}" class="user-account">Cerrar sesión</a>
                             </div>
                         {% else %}
-                            <a href="{% url 'inicio' %}"><button type="button" class="btn">
-                                <i class="bi bi-person fs-1 me-3 iconNav ms-2"></i>
-                            </button></a>
-                            <div class="user-info">
-                                <span class="user-greeting">Hola, </span>
-                                <a href="{% url 'inicio' %}" class="user-account">Iniciar sesión</a>
-                            </div>
+                            <a href="{% url 'inicio' %}" class="nav-icon me-3" title="Iniciar sesión">
+                                <i class="bi bi-person text-white fw-9"></i>
+                            </a>
                         {% endif %}
-                
-                        <button type="button" class="btn" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight" id="openCartOffCanvas">
-                            <i class="bi bi-cart3 fs-2 iconNav me-2"></i>
+                        
+                        <button class="btn p-0 position-relative" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
+                            <i class="bi bi-cart3 nav-icon text-white fw-9"></i>
+                            {% if request.session.carrito %}
+                                <span class="cart-count">{{ request.session.carrito.items|length }}</span>
+                            {% endif %}
                         </button>
                     </div>
-                </div>                
-                <style>
-                    .user-info {
-                        display: flex;
-                        flex-direction: column;
-                        align-items: flex-start;
-                        margin-right: 10px;
-                    }
-
-                    .user-greeting {
-                        font-size: 1rem;
-                        font-weight: bold;
-                        color: white;
-                    }
-
-                    .user-account {
-                        font-size: 0.9rem;
-                        color: white; 
-                        text-decoration: none;
-                    }
-
-                    .user-account:hover {
-                        text-decoration: underline;
-                    }
-
-                </style>
-            </nav>
+                </div>
+            </div>
         </div>
-    </div>
-    
-    <!-- Offcanvas -->
-    <div class="offcanvas offcanvas-end offcanvasCart" tabindex="-2" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+        
+        <nav class="navbar navbar-expand-lg navbar-dark bg-white py-0">
+            <div class="container">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse align-content-center" id="mainNav">
+                    <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+                        <li class="nav-item dropdown dropdown-mega position-static">
+                            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Herramientas</a>
+                            <div class="dropdown-menu mega-menu w-100">
+                                <div class="container py-3">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <h5>Herramientas Manuales</h5>
+                                            <div class="list-group list-group-flush">
+                                                <a class="list-group-item" href="#">Martillos</a>
+                                                <a class="list-group-item" href="#">Destornilladores</a>
+                                                <a class="list-group-item" href="#">Llaves</a>
+                                                <a class="list-group-item text-primary" href="{% url 'general_ram' %}">Ver Todos</a>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <h5>Herramientas Eléctricas</h5>
+                                            <div class="list-group list-group-flush">
+                                                <a class="list-group-item" href="#">Taladros</a>
+                                                <a class="list-group-item" href="#">Sierras</a>
+                                                <a class="list-group-item" href="#">Lijadoras</a>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <h5>Accesorios</h5>
+                                            <div class="list-group list-group-flush">
+                                                <a class="list-group-item" href="#">Brocas</a>
+                                                <a class="list-group-item" href="#">Discos</a>
+                                                <a class="list-group-item" href="#">Baterías</a>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="promo-card bg-light p-3 rounded text-center h-100">
+                                                <h6 class="text-primary">Ofertas Especiales</h6>
+                                                <p class="small">En herramientas seleccionadas</p>
+                                                <img src="{% static 'gt_store/img/promo-tools.png' %}" alt="Ofertas" class="img-fluid mt-2">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Fijaciones</a>
+                        </li>
+                        
+                        <li class="nav-item dropdown dropdown-mega position-static">
+                            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Materiales</a>
+                            <div class="dropdown-menu mega-menu w-100">
+                                <div class="container py-3">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <h5>Materiales Básicos</h5>
+                                            <div class="list-group list-group-flush">
+                                                <a class="list-group-item" href="#">Cemento</a>
+                                                <a class="list-group-item" href="#">Arena</a>
+                                                <a class="list-group-item" href="#">Ladrillos</a>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <h5>Acabados</h5>
+                                            <div class="list-group list-group-flush">
+                                                <a class="list-group-item" href="#">Pinturas</a>
+                                                <a class="list-group-item" href="#">Barnices</a>
+                                                <a class="list-group-item" href="#">Cerámicas</a>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="promo-card bg-light p-3 rounded text-center h-100">
+                                                <h6 class="text-primary">Materiales Destacados</h6>
+                                                <p class="small">Calidad garantizada</p>
+                                                <img src="{% static 'gt_store/img/promo-materials.png' %}" alt="Materiales" class="img-fluid mt-2">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Tornillería</a>
+                        </li>
+                        
+                        <li class="nav-item dropdown dropdown-mega position-static">
+                            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Seguridad</a>
+                            <div class="dropdown-menu mega-menu w-100">
+                                <div class="container py-3">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <h5>Equipos de Protección</h5>
+                                            <div class="list-group list-group-flush">
+                                                <a class="list-group-item" href="#">Cascos</a>
+                                                <a class="list-group-item" href="#">Guantes</a>
+                                                <a class="list-group-item" href="#">Lentes</a>
+                                                <a class="list-group-item" href="#">Chalecos</a>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="promo-card bg-light p-3 rounded text-center h-100">
+                                                <h6 class="text-primary">Seguridad Primero</h6>
+                                                <p class="small">Equípate con lo mejor</p>
+                                                <img src="{% static 'gt_store/img/1.png' %}" alt="Seguridad" class="img-fluid mt-2">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Medición</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+     <div class="offcanvas offcanvas-end offcanvasCart" tabindex="-2" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
         <div class="offcanvas-header">
             <h5 class="offcanvas-title fw-bold fs-5" id="offcanvasRightLabel">Resumen</h5>
             <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
@@ -127,7 +405,7 @@
                         <div class="product-item container-fluid">
                             <div class="row">
                                 <div class="col-4">
-                                    <a href="{% url 'detalle_producto' value.producto_id %}">
+                                    <a href="{% url 'detalle_producto' value.codigo %}">
                                          <div class="container d-flex align-items-center justify-content-center" style="width: 100%; height: 100%;">
                                              <img src="{{ value.imagen }}" alt="{{ value.nombre }}" class="img-fluid">
                                          </div>
@@ -136,17 +414,13 @@
                                 <div class="col-8 product-details">
                                     <p class="product-name">{{ value.nombre }}</p>
                                     <div class="d-flex justify-content-between">
-                                        <p class="fw-bold">Total pago con transferencia:</p>
-                                        <p class="product-price" data-acumulado-transferencia="{{ value.acumulado_transferencia }}"></p>
-                                    </div>
-                                    <div class="d-flex justify-content-between">
-                                        <p>Total otros medios de pago:</p>
+                                        <p>Total:</p>
                                         <p class="product-price" data-acumulado-normal="{{ value.acumulado_normal }}"></p>
                                     </div>
                                     <div class="cantidadProductos">
-                                        <a href="{% url 'Sub' value.producto_id %}" class="badge btn btn-dark badge-dark">-</a>
+                                        <a href="{% url 'Sub' value.codigo %}" class="badge btn btn-dark badge-dark">-</a>
                                         <span class="mx-2">{{ value.cantidad }}</span>
-                                        <a href="{% url 'Add' value.producto_id %}" class="badge btn btn-dark badge-dark {% if value.cantidad >= value.stock %}disabled{% endif %}">+</a>
+                                        <a href="{% url 'Add' value.codigo %}" class="badge btn btn-dark badge-dark {% if value.cantidad >= value.stock %}disabled{% endif %}">+</a>
                                     </div>
                                     {% if value.cantidad >= value.stock %}
                                         <p class="stock-warning">No puedes agregar más de este producto. Stock disponible: {{ value.stock }}</p>
@@ -160,12 +434,7 @@
                 {% endif %}
             </div>
 
-            <!-- Totales fijos -->
             <div class="resumenFijo">
-                <div class="d-flex justify-content-between">
-                    <p class="fw-bold">Pago con transferencia:</p>
-                    <p class="product-price fw-bold fs-5 text-success" data-total-transferencia="{{total_carrito_transferencia }}"></p>
-                </div>
                 <div class="d-flex justify-content-between">
                     <p>Otro medio de pago:</p>
                     <p class="product-price fs-5" data-total-normal="{{total_carrito_normal}}"></p>
@@ -180,26 +449,26 @@
 
     <style>
         .offcanvas-end {
-            width: 70%; /* Ajusta el ancho del offcanvas */
+            width: 70%; 
             max-width: 100%;
-            transform: translateX(100%); /* Mueve el offcanvas fuera de la vista cuando está cerrado */
-            transition: transform 0.3s ease-in-out; /* Animación suave para la transición */
+            transform: translateX(100%); 
+            transition: transform 0.3s ease-in-out; 
         }
 
         .offcanvas.show {
-            transform: translateX(0); /* Mueve el offcanvas a su posición original cuando está abierto */
+            transform: translateX(0); 
         }
 
         .offcanvas-body {
             display: flex;
             flex-direction: column;
-            padding-bottom: 100px; /* Ajusta el padding según sea necesario */
+            padding-bottom: 100px; 
         }
 
         .product-list {
             flex-grow: 1;
             overflow-y: auto;
-            max-height: calc(100vh - 200px); /* Ajusta la altura máxima según sea necesario */
+            max-height: calc(100vh - 200px);
             padding: 10px;
             margin-bottom: 20px; 
         }
@@ -256,350 +525,77 @@
         }
     </style>
     
-    <!--NavBar=md -->
-    <nav class="navbar navBarmd bg-black">
-        <div class="container-fluid">
-            <button class="navbar-toggler border-0" type="button" data-bs-toggle="offcanvas"
-                data-bs-target="#menulateral">
-                <span class="navbar-toggler-icon "><i class="bi bi-list text-light fs-1"></i></span>
-            </button>
-            <a href="{% url 'home' %}" class="navbar-brand"><img src="{% static 'gt_store/img/Logos/GatoTechLogo.png' %}" class="imgLogomd" alt=""></a>
-            <div class="d-lg-none">
-                {% if request.session.user_nombre %}
-                    <a href="{% url 'login_usuario' %}"><button type="button" class="btn"><i class="bi bi-person fs-1 me-2  ms-1"></i></button></a>
-                {% else %}
-                    <a href="{% url 'inicio' %}"><button type="button" class="btn"><i class="bi bi-person fs-1 me-2  ms-1"></i></button></a>
-                {% endif %}
-                <button type="button" class="btn"  data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight" id="openCartOffCanvas"><i class="bi bi-cart3  fs-2 iconNav me-2"></i></button>
-            </div>
-            <div class="container-fluid justify-content-center d-flex mb-2 mt-2  searchDiv">
-                <form class="d-flex w-100">
-                    <input class="form-control mt-3 ms-2 " type="search" placeholder="Encuentra lo que necesitas"
-                        aria-label="Search">
-                    <button class="btn pt-4 ms-2" type="submit"><i class="bi bi-search fs-5"></i></button>
-                </form>
-            </div>
-            <section class="offcanvas offcanvas-start bg-black p-3" id="menulateral" tabindex="-1 ">
-                <div class="offcanvas-header  align-items-start mt-3" data-bs-theme="none">
-                    <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto me-5 text-decoration-none">
-                        <img src="{% static 'gt_store/img/Logos/GatoTechLogo.png' %}" class="imgLogomd" alt="gatoTechLogo">
-                    </a>
-                    <button class="btn pt-1 ms-5" type="button" aria-label="close" data-bs-dismiss="offcanvas"><i
-                            class="bi bi-x-lg  fs-5 text-white ms-1"></i></button>
+
+    <main class="mb-5">
+        {% block contenido %}
+        {% endblock %}
+    </main>
+
+    <footer class="main-footer pt-5 pb-3">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 mb-4">
+                    <img src="{% static 'gt_store/img/Logos/FERREMAS.png' %}" alt="FerreMas" class="footer-logo mb-3">
+                    <p class="text-white">Tu ferretería de confianza con los mejores productos y precios.</p>
+                    <div class="social-icons mt-3">
+                        <a href="#" class="text-white me-3"><i class="bi bi-facebook"></i></a>
+                        <a href="#" class="text-white me-3"><i class="bi bi-instagram"></i></a>
+                        <a href="#" class="text-white me-3"><i class="bi bi-twitter-x"></i></a>
+                        <a href="#" class="text-white"><i class="bi bi-tiktok"></i></a>
+                    </div>
                 </div>
-                <hr class="text-white w-60 h-10">
-                <div class="offcanvas-body d-flex flex-column">
-                    <ul class="navbar-nav bg-black" style="gap: 10px;">
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle text-white" href="{% url 'general_pc' %}" role="button"
-                                data-bs-toggle="dropdown" aria-expanded="false">
-                                PC
-                            </a>
-                            <ul class="dropdown-menu bg-black text-white">
-                                <li><a class="dropdown-item text-white" href="{% url 'pc_gamer' %}">PC Gamer</a></li>
-                                <li><a class="dropdown-item text-white" href="{% url 'pc_escritorio' %}">PC Escritorio</a></li>
-                            </ul>
-                        </li>
-
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle  text-white" href="{% url 'general_notebooks'%}" role="button" data-bs-toggle="dropdown" aria-expanded="false">Notebook</a>
-                            <ul class="dropdown-menu bg-black text-white">
-                                <li><a class="dropdown-item text-white" href="#">Notebook Gamer</a></li>
-                                <li><a class="dropdown-item text-white" href="#">Notebook</a></li>
-                            </ul>
-                        </li>
-
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle  text-white" href="#" role="button"
-                                data-bs-toggle="dropdown" aria-expanded="false">Componentes</a>
-                            <ul class="dropdown-menu bg-black text-white">
-                                <li><a class="dropdown-item text-white" href="{% url 'general_processors' %}">Procesador</a></li>
-                                <li><a class="dropdown-item text-white" href="{% url 'general_placa' %}">Placa Madre</a></li>
-                                <li><a class="dropdown-item text-white" href="{% url 'general_ram' %}">Ram</a></li>
-                                <li><a class="dropdown-item text-white" href="{% url 'general_almacenamiento' %}">Almacenamiento</a></li>
-                                <li><a class="dropdown-item text-white" href="{% url 'general_fP' %}">Fuente de Poder</a></li>
-                                <li><a class="dropdown-item text-white" href="{% url 'general_gpu' %}">Tarjeta de Video</a></li>
-                                <li><a class="dropdown-item text-white" href="{% url 'general_gabinete' %}">Gabinetes</a></li>
-                            </ul>
-                        </li>
-
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle  text-white" href="#" role="button"
-                                data-bs-toggle="dropdown" aria-expanded="false">Periféricos</a>
-                            <ul class="dropdown-menu bg-black text-white">
-                                <li><a class="dropdown-item text-white" href="{% url 'general_headset' %}">Audifonos</a></li>
-                                <li><a class="dropdown-item text-white" href="{% url 'general_monitor' %}">Monitores</a></li>
-                                <li><a class="dropdown-item text-white" href="{% url 'general_keyboard' %}">Teclados</a></li>
-                                <li><a class="dropdown-item text-white" href="{% url 'general_mouse' %}">Mouse</a></li>
-                            </ul>
-                        </li>
-
+                
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <h5 class="footer-title">Navegación</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="footer-link">Inicio</a></li>
+                        <li><a href="#" class="footer-link">Productos</a></li>
+                        <li><a href="#" class="footer-link">Ofertas</a></li>
+                        <li><a href="#" class="footer-link">Novedades</a></li>
+                        <li><a href="#" class="footer-link">Contacto</a></li>
                     </ul>
                 </div>
-                <hr class="text-white w-60 h-10">
-            </section>
+                
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <h5 class="footer-title">Categorías</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="footer-link">Herramientas</a></li>
+                        <li><a href="#" class="footer-link">Materiales</a></li>
+                        <li><a href="#" class="footer-link">Equipos de seguridad</a></li>
+                        <li><a href="#" class="footer-link">Fijaciones</a></li>
+                        <li><a href="#" class="footer-link">Tornillería</a></li>
+                    </ul>
+                </div>
+                
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <h5 class="footer-title">Contacto</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><i class="bi bi-geo-alt me-2"></i> Av. Principal 123, Viña del Mar</li>
+                        <li class="mb-2"><i class="bi bi-telephone me-2"></i> +56 9 111 111 11</li>
+                        <li class="mb-2"><i class="bi bi-envelope me-2"></i> contacto@ferremas.cl</li>
+                        <li class="mt-3">
+                            <div id="map" style="height: 150px;"></div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <hr class="my-4 bg-secondary">
+            
+            <div class="row">
+                <div class="col-md-6 text-center text-md-start">
+                    <p class="small text-muted mb-0">&copy; 2025 FerreMas. Todos los derechos reservados.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <a href="#" class="footer-link small me-3">Términos y condiciones</a>
+                    <a href="#" class="footer-link small me-3">Política de privacidad</a>
+                    <a href="#" class="footer-link small">Preguntas frecuentes</a>
+                </div>
+            </div>
         </div>
-    </nav>
-    <!--NavMenu-->
-    <div id="nav-especifico">
-        <header class="navMenu">
-            <nav class="navbar navbar-expand-lg border-bottom">
-                <div class="container">
-                    <div class="collapse navbar-collapse" id="navbar-content">
-                        <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
-                            <li class="nav-item dropdown dropdown-mega position-static">
-                                <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown"
-                                    data-bs-auto-close="outside">Computación</a>
-                                <div class="dropdown-menu shadow">
-                                    <div class="mega-content px-md-4">
-                                        <div class="container-fluid">
-                                            <div class="row">
-                                                <div class="col-2"></div>
-                                                <div class="col-lg-2 col-sm-6 py-4 px-xl-5 px-4">
-                                                    <h5>Pc</h5>
-                                                    <div class="list-group">
-                                                        <a class="list-group-item" href="{% url 'pc_gamer' %}">Pc Gamer</a>
-                                                        <a class="list-group-item" href="{% url 'pc_escritorio' %}">Pc Oficina</a>
-                                                        <a class="list-group-item text-info" href="{% url 'general_pc' %}">Ver
-                                                            Todos</a>
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-2 col-sm-6 py-4 px-xl-5 px-4">
-                                                    <h5>Notebook</h5>
-                                                    <div class="list-group">
-                                                        <a class="list-group-item" href="{% url 'general_note_gamer'}">Notebook Gamer</a>
-                                                        <a class="list-group-item" href="{% url 'general_note_escritorio'}">Notebook Oficina</a>
-                                                        <a class="list-group-item text-info" href="{% url 'general_notebooks' %}">Ver
-                                                            Todos</a>
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-2 col-sm-6 py-4 px-xl-5 px-4">
-                                                    <h5>Periféricos</h5>
-                                                    <div class="list-group">
-                                                        <a class="list-group-item" href="{% url 'general_keyboard' %}">Teclados</a>
-                                                        <a class="list-group-item" href="{% url 'general_headset' %}">Audifonos</a>
-                                                        <a class="list-group-item" href="{% url 'general_mouse' %}">Mouse</a>
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-2 col-sm-6 py-4 px-xl-5 px-4">
-                                                    <h5>Monitores</h5>
-                                                    <div class="list-group">
-                                                        <a class="list-group-item" href="#">Monitor Gamer</a>
-                                                        <a class="list-group-item" href="#">Monitor Oficina</a>
-                                                        <a class="list-group-item text-info" href="{% url 'general_monitor' %}">Ver Todos</a>
-                                                    </div>
-                                                </div>
-                                                <div class="col-2"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
+    </footer>
 
-                            <li class="nav-item dropdown dropdown-mega position-static">
-                                <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown"
-                                    data-bs-auto-close="outside">Componentes</a>
-                                <div class="dropdown-menu shadow">
-                                    <div class="mega-content px-md-4">
-                                        <div class="container-fluid">
-                                            <div class="row">
-                                                <div class="col-2"></div>
-                                                <div class="col-lg-2 col-xl-2  col-sm-6 py-4 px-xl-5 px-4">
-                                                    <h5>Procesador</h5>
-                                                    <div class="list-group">
-                                                        <a class="list-group-item" href="{% url 'general_proce_amd' %}">AMD</a>
-                                                        <a class="list-group-item" href="{% url 'general_proce_intel' %}">Intel</a>
-                                                        <a class="list-group-item text-info" href="{% url 'general_processors' %}">Ver
-                                                            Todos</a>
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-2 col-xl-2 col-sm-6 py-4 px-xl-5 px-4">
-                                                    <h5>Placa Madre</h5>
-                                                    <div class="list-group">
-                                                        <a class="list-group-item" href="{% url 'general_placa_amd' %}">Placa madre AMD</a>
-                                                        <a class="list-group-item" href="{% url 'general_placa_intel' %}">Placa madre Intel</a>
-                                                        <a class="list-group-item text-info" href="{% url 'general_placa' %}">Ver
-                                                            Todos</a>
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-2  col-xl-2 col-sm-6 py-4 px-xl-5 px-4">
-                                                    <h5>Memoria RAM</h5>
-                                                    <div class="list-group">
-                                                        <a class="list-group-item" href="#">Memoria RAM PC</a>
-                                                        <a class="list-group-item" href="#">Memoria RAM Notebook</a>
-                                                        <a class="list-group-item text-info" href="{% url 'general_ram' %}">Ver
-                                                            Todos</a>
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-2  col-xl-2  col-sm-6 py-4 px-xl-5 px-4">
-                                                    <h5>Almacenamiento</h5>
-                                                    <div class="list-group">
-                                                        <a class="list-group-item" href="{% url 'general_hdd' %}">Almacenamiento HDD</a>
-                                                        <a class="list-group-item" href="{% url 'general_ssd' %}">Almacenamiento SDD </a>
-                                                        <a class="list-group-item" href="{% url 'general_nvme' %}">Almacenamiento Nvme </a>
-                                                        <a class="list-group-item text-info"
-                                                            href="{% url 'general_almacenamiento' %}">Ver Todos</a>
-                                                    </div>
-                                                </div>
-                                                <div class="col-2"></div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-2"></div>
-                                                <div class="col-lg-2 col-xl-2 col-sm-6 py-4 px-xl-5 px-4">
-                                                    <h5>Fuente de Poder</h5>
-                                                    <div class="list-group">
-                                                        <a class="list-group-item" href="{% url 'general_fP' %}">Fuentes de Poder</a>
-                                                        <a class="list-group-item text-info"
-                                                            href="{% url 'general_fP' %}">Ver Todos</a>
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-2  col-xl-2 col-sm-6 py-4 px-xl-5 px-4">
-                                                    <h5>Gabinete</h5>
-                                                    <div class="list-group">
-                                                        <a class="list-group-item" href="{% url 'general_gabinete' %}">Gabinetes</a>
-                                                        <a class="list-group-item text-info" href="{% url 'general_gabinete' %}">Ver
-                                                            Todos</a>
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-2 col-xl-2  col-sm-6 py-4 px-xl-5 px-4">
-                                                    <h5>Tarjeta de Video</h5>
-                                                    <div class="list-group">
-                                                        <a class="list-group-item" href="{% url 'general_gpu_nvidia' %}">Tarjeta de Video NVIDIA</a>
-                                                        <a class="list-group-item" href="{% url 'general_gpu_amd' %}">Tarjeta de Video AMD</a>
-                                                        <a class="list-group-item" href="{% url 'general_gpu_intel' %}">Tarjeta de Video Intel</a>
-                                                        <a class="list-group-item text-info"
-                                                            href="{% url 'general_gpu' %}">Ver Todos</a>
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-3 col-xl-3  col-sm-6 py-4 px-xl-5 px-4">
-                                                    <h5>Guia de armado</h5>
-                                                    <div class="list-group">
-                                                        <a class="list-group-item" href="sugerencia.html">Sugerencias sobre CPU y GPU</a>
-                                                    </div>
-                                                </div>
-                                                <div class="col-2"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="nav-item dropdown dropdown-mega position-static">
-                                <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown"
-                                    data-bs-auto-close="outside">Periféricos</a>
-                                <div class="dropdown-menu shadow">
-                                    <div class="mega-content px-md-4">
-                                        <div class="container-fluid">
-                                            <div class="row">
-                                                <div class="col-2"></div>
-                                                <div class="col-lg-2 col-sm-6 py-4 px-xl-5 px-4">
-                                                    <h5>Audifonos</h5>
-                                                    <div class="list-group">
-                                                        <a class="list-group-item" href="#">True wireless (TWS)</a>
-                                                        <a class="list-group-item" href="{% url 'general_headset_headset' %}">Headsets</a>
-                                                        <a class="list-group-item text-info" href="{% url 'general_headset' %}">Ver
-                                                            Todos</a>
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-2 col-sm-6 py-4 px-xl-5 px-4">
-                                                    <h5>Teclados</h5>
-                                                    <div class="list-group">
-                                                        <a class="list-group-item" href="{% url 'general_mecanico' %}">Mecánicos</a>
-                                                        <a class="list-group-item" href="{% url 'general_membrana' %}">Membrana</a>
-                                                        <a class="list-group-item text-info" href="{% url 'general_keyboard' %}">Ver
-                                                            Todos</a>
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-2 col-sm-6 py-4 px-xl-5 px-4">
-                                                    <h5>Mouse</h5>
-                                                    <div class="list-group">
-                                                        <a class="list-group-item" href="{% url 'general_mouse_optico'%}">Ópticos</a>
-                                                        <a class="list-group-item" href="{% url 'general_mouse_laser'%}">Láser</a>
-                                                        <a class="list-group-item text-info" href="{% url 'general_mouse' %}">Ver
-                                                            Todos</a>
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-2 col-sm-6 py-4 px-xl-5 px-4">
-                                                    <h5>Monitores</h5>
-                                                    <div class="list-group">
-                                                        <a class="list-group-item" href="#">Con FreeSync</a>
-                                                        <a class="list-group-item" href="#">Con G-Sync</a>
-                                                        <a class="list-group-item text-info" href="{% url 'general_monitor' %}">Ver
-                                                            Todos</a>
-                                                    </div>
-                                                </div>
-                                                <div class="col-2"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </nav>
-        </header>
-    </div>
-    {% block contenido %}
-    {% endblock %}
-    <!--Footer-->
-    <div class="container-fluid pt-5">
-        <div class="row p-5 pb-0 bg-black text-white justify-content-between">
-            <div class="d-none d-sm-none d-md-none d-xs-none d-lg-block col-lg-3">
-                <a href=""><img src="{% static 'gt_store/img/Logos/GatoTechLogo.png' %}" class="footerLogo" alt=""></a>
-            </div>
-            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-3 ">
-                <p class="h5 ">Navegacion</p>
-                <div class="border-bottom footerLine mx-auto"></div>
-                <div class="mb-2">
-                    <a class="text-white  text-decoration-none" href="# ">PC</a>
-                </div>
-                <div class="mb-2">
-                    <a class="text-white text-decoration-none" href="#">Notebook</a>
-                </div>
-                <div class="mb-2">
-                    <a class="text-white text-decoration-none" href="#">Componentes</a>
-                </div>
-                <div class="mb-2">
-                    <a class="text-white text-decoration-none" href="#">Perifericos</a>
-                </div>
-            </div>
-            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-3">
-                <p class="h5 ">Redes sociales</p>
-                <div class="border-bottom footerLine mx-auto"></div>
-                <div class="mb-2">
-                    <a class="text-white  text-decoration-none" href="# ">Instagram</a>
-                </div>
-                <div class="mb-2">
-                    <a class="text-white text-decoration-none" href="#">TikTok</a>
-                </div>
-                <div class="mb-2">
-                    <a class="text-white text-decoration-none" href="#">Facebook</a>
-                </div>
-            </div>
-            <div class="col-xs-4  col-sm-4 col-md-4 col-lg-3">
-                <p class="h5 ">Sobre nosotros</p>
-                <div class="border-bottom footerLine  mx-auto"></div>
-                <div class="mb-2">
-                    <a class="text-white text-decoration-none" href="#">Terminos y condiciones</a>
-                </div>
-                <div class="mb-2">
-                    <a class="text-white text-decoration-none" href="#">Politicas de privacidad</a>
-                </div>
-                <div class="mb-2">
-                    <a class="text-white  text-decoration-none fw-bold" href="# ">Encuentranos aquí</a>
-                    <div class="container-fluid">
-                        <div class="row justify-content-start">
-                            <div class="col-1"></div>
-                            <div class="col-6 mt-3 mb-3" id="map" style="height: 28vh; width: 28vw; margin-left:0vw ;">
-                            </div>
-                            <div class="col-1"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <!-- jQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <!-- Owl Carousel JS -->
