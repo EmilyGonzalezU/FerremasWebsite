@@ -6,19 +6,19 @@
 <div class="owl-carousel owl-theme " id="carousel1">
     <div class="item">
         <div class="image-container1 d-flex justify-content-center">
-            <img src="{% static 'gt_store/img/Banner/HERRAMIENTAS.png' %}" class="d-block imgBanner" alt="...">
+            <img src="{% static 'gt_store/img/Banner/HERRAMIENTAS.png' %}" class="d-block imgBanner" loading="lazy">
         </div>
     </div>
     <div class="item">
         <div class="image-container1 d-flex justify-content-center">
             <!--img banner2-->
-            <img src="{% static 'gt_store/img/Banner/FF8C00.png' %} " class="d-block imgBanner" alt="...">
+            <img src="{% static 'gt_store/img/Banner/FF8C00.png' %} " class="d-block imgBanner" loading="lazy">
         </div>
     </div>
     <div class="item">
         <div class="image-container1 d-flex justify-content-center">
             <!--a-->
-            <img src="{% static 'gt_store/img/Banner/HERRAMIENTAS.png' %}" class="d-block imgBanner" alt="...">
+            <img src="{% static 'gt_store/img/Banner/HERRAMIENTAS.png' %}" class="d-block imgBanner"  loading="lazy">
         </div>
     </div>
 </div>
@@ -185,155 +185,4 @@
         </div>
     </div>
 </div>
-
-<style>
-    /* Estilos generales */
-    .hero-banner {
-        margin-top: -1rem;
-        overflow: hidden;
-    }
-    
-    .section-title {
-        font-weight: 700;
-        color: #333;
-        position: relative;
-        padding-bottom: 10px;
-    }
-    
-    .section-title:after {
-        content: '';
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 60px;
-        height: 3px;
-        background-color: #FF8C00;
-    }
-    
-    .btn-outline-orange {
-        color: #FF8C00;
-        border-color: #FF8C00;
-    }
-    
-    .btn-outline-orange:hover {
-        background-color: #FF8C00;
-        color: white;
-    }
-    
-    /* Tarjetas de producto */
-    .product-card {
-        background: white;
-        border-radius: 8px;
-        overflow: hidden;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-        transition: all 0.3s ease;
-        height: 100%;
-        position: relative;
-    }
-    
-    .product-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 8px 20px rgba(0,0,0,0.12);
-    }
-    
-    .product-link {
-        text-decoration: none;
-        color: inherit;
-    }
-    
-    .product-img-container {
-        height: 200px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 15px;
-        background: white;
-    }
-    
-    .product-img {
-        max-height: 100%;
-        max-width: 100%;
-        object-fit: contain;
-        transition: transform 0.3s ease;
-    }
-    
-    .product-card:hover .product-img {
-        transform: scale(1.05);
-    }
-    
-    .product-body {
-        padding: 15px;
-    }
-    
-    .product-brand {
-        font-size: 0.85rem;
-        color: #666;
-        font-weight: 600;
-        display: block;
-        margin-bottom: 5px;
-    }
-    
-    .product-title {
-        font-size: 1rem;
-        font-weight: 600;
-        margin-bottom: 10px;
-        height: 40px;
-        overflow: hidden;
-    }
-    
-    .product-desc {
-        font-size: 0.85rem;
-        color: #666;
-        height: 40px;
-        overflow: hidden;
-        margin-bottom: 15px;
-    }
-    
-    .product-price {
-        margin-top: 10px;
-    }
-    
-    .current-price {
-        font-size: 1.25rem;
-        font-weight: 700;
-        color: #FF8C00;
-    }
-    
-    .old-price {
-        font-size: 0.9rem;
-        text-decoration: line-through;
-        color: #999;
-        margin-right: 8px;
-    }
-    
-    .product-badge {
-        position: absolute;
-        top: 10px;
-        right: 10px;
-        z-index: 2;
-    }
-    
-    /* Carousel */
-    .product-carousel .owl-nav {
-        position: absolute;
-        top: -60px;
-        right: 0;
-    }
-    
-    .product-carousel .owl-nav button {
-        width: 36px;
-        height: 36px;
-        border-radius: 50% !important;
-        background: #f8f9fa !important;
-        margin-left: 10px;
-        transition: all 0.3s;
-    }
-    
-    .product-carousel .owl-nav button:hover {
-        background: #FF8C00 !important;
-        color: white !important;
-    }
-</style>
-
-
 {% endblock %}

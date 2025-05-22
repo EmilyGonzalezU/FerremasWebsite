@@ -67,8 +67,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'carrito.context_processors.total_carrito_transferencia',
-                'carrito.context_processors.total_carrito_normal',
+                'carrito.context_processors.total_carrito',
             ],
         },
     },
@@ -135,3 +134,9 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+TRANSBANK = {
+    "commerce_code": "597055555532",  # Código de comercio de pruebas
+    "api_key": "579B532A7440BB0C9079DED94D31EA1615BACEB56610332264630D42D0A36B1C",    # Llave secreta entregada por Transbank
+    "integration_type": "TEST",       # Cambiar a 'LIVE' en producción
+}

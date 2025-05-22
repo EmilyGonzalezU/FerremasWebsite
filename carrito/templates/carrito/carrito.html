@@ -24,9 +24,9 @@
                                         <p class="product-price" data-acumulado-normal="{{ value.precio }}"></p>
                                     </div>
                                     <div class="cantidadProductos d-flex align-items-center">
-                                        <a href="{% url 'Sub' value.producto_id %}" class="badge btn btn-dark badge-dark">-</a>
+                                        <a href="{% url 'Sub' value.codigo %}" class="badge btn btn-dark badge-dark">-</a>
                                         <span class="mx-2">{{ value.cantidad }}</span>
-                                        <a href="{% url 'Add' value.producto_id %}" class="badge btn btn-dark badge-dark {% if value.cantidad >= value.stock %}disabled{% endif %}">+</a>
+                                        <a href="{% url 'Add' value.codigo %}" class="badge btn btn-dark badge-dark {% if value.cantidad >= value.stock %}disabled{% endif %}">+</a>
                                     </div>
                                     {% if value.cantidad >= value.stock %}
                                         <p class="stock-warning mt-2">No puedes agregar más de este producto. Stock disponible: {{ value.stock }}</p>
@@ -44,7 +44,7 @@
             <div class="resumenFijo sticky-top mt-4 mt-md-0">
                 <div class="d-flex justify-content-between">
                     <p>Total:</p>
-                    <p class="product-price fs-5" data-total-normal="{{total_carrito_normal}}"></p>
+                    <p class="product-price fs-5" data-total-normal="{{total_carrito}}"></p>
                 </div>
                 <div class="row text-center mt-3">
                     {% if request.session.user_nombre  %}
@@ -67,3 +67,4 @@
     </div>
 </div>
 {% endblock %}
+

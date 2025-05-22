@@ -1,0 +1,22 @@
+{% extends "gt_store/base_general.html" %}
+{% block contenido %}
+<div class="total-section mt-4">
+    <div class="d-flex justify-content-between align-items-center">
+        <span class="total-text">Total (CLP):</span>
+        <span class="total-amount">${{ total_clp|floatformat:0 }}</span>
+    </div>
+    {% if valor_dolar %}
+    <div class="d-flex justify-content-between align-items-center mt-2">
+        <span class="total-text">Total (USD):</span>
+        <span class="total-amount">${{ total_usd|floatformat:2 }}</span>
+    </div>
+    <small class="text-muted d-block mt-1">Tipo de cambio: ${{ valor_dolar|floatformat:2 }} CLP por 1 USD</small>
+    {% endif %}
+</div>
+
+<div class="d-grid mt-4">
+    <a href="{% url 'iniciar_pago_webpay' %}" class="btn btn-pagar text-white">
+        <i class="bi bi-credit-card me-2"></i>Pagar con WebPay
+    </a>
+</div>
+{% endblock %}

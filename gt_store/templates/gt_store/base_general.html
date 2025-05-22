@@ -29,201 +29,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css">
     
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="{% static 'gt_store/Styles/style.css' %}">
+    <link rel="stylesheet" href="{% static 'gt_store/Styles/style2.css' %}">
     <link rel="stylesheet" href="{% static 'gt_store/Styles/products.css' %}">
     <link rel="stylesheet" href="{% static 'gt_store/Styles/menu.css' %}">
-    
-    <style>
-        :root {
-            --primary-color: #FF8C00;
-            --secondary-color: #131a55;
-            --light-color: #f8f9fa;
-            --dark-color: #212529;
-        }
-        
-        body {
-            font-family: 'Montserrat', sans-serif;
-            background-color: #f5f5f5;
-        }
-        
-        /* Header Styles */
-        .main-header {
-            background-color: var(--secondary-color);
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-        
-        .navbar-brand img {
-            height: 50px;
-            transition: transform 0.3s;
-        }
-        
-        .navbar-brand img:hover {
-            transform: scale(1.05);
-        }
-        
-        .search-box {
-            max-width: 600px;
-        }
-        
-        .search-input {
-            border-radius: 25px 0 0 25px;
-            border-right: none;
-        }
-        
-        .search-btn {
-            border-radius: 0 25px 25px 0;
-            background-color: var(--primary-color);
-            color: white;
-            border-left: none;
-        }
-        
-        .nav-icon {
-            font-size: 1.5rem;
-            color: white;
-            transition: color 0.3s;
-            position: relative;
-        }
-        
-        .nav-icon:hover {
-            color: var(--primary-color);
-        }
-        
-        .cart-count {
-            position: absolute;
-            top: -5px;
-            right: -5px;
-            background-color: var(--primary-color);
-            color: white;
-            border-radius: 50%;
-            width: 20px;
-            height: 20px;
-            font-size: 0.7rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        /* Mega Menu Styles */
-        .mega-menu {
-            background-color: white;
-            border-top: 3px solid var(--primary-color);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            
-        }
-        
-        .nav-link {
-            font-weight: 500;
-            color: var(--dark-color);
-            padding: 1rem 1.5rem;
-            transition: color 0.3s;
-        }
-        
-        .nav-link:hover, .nav-link:focus {
-            color: var(--primary-color);
-        }
-        
-        .dropdown-mega:hover .nav-link {
-            color: var(--primary-color);
-        }
-        
-        .mega-content {
-            padding: 2rem 0;
-        }
-        
-        .mega-content h5 {
-            color: var(--primary-color);
-            font-weight: 600;
-            margin-bottom: 1rem;
-        }
-        
-        .list-group-item {
-            border: none;
-            padding: 0.5rem 0;
-            color: var(--dark-color);
-            transition: color 0.3s;
-        }
-        
-        .list-group-item:hover {
-            color: var(--primary-color);
-            background: none;
-        }
-        
-        /* Footer Styles */
-        .main-footer {
-            background-color: var(--secondary-color);
-            color: white;
-        }
-        
-        .footer-logo {
-            max-height: 70px;
-        }
-        
-        .footer-title {
-            font-size: 1.2rem;
-            font-weight: 600;
-            margin-bottom: 1.5rem;
-            position: relative;
-        }
-        
-        .footer-title::after {
-            content: '';
-            position: absolute;
-            bottom: -0.5rem;
-            left: 0;
-            width: 50px;
-            height: 2px;
-            background-color: var(--primary-color);
-        }
-        
-        .footer-link {
-            color: rgba(255,255,255,0.8);
-            text-decoration: none;
-            transition: color 0.3s;
-            margin-bottom: 0.5rem;
-            display: inline-block;
-        }
-        
-        .footer-link:hover {
-            color: white;
-        }
-        
-        #map {
-            height: 200px;
-            width: 100%;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-        }
-        
-        /* User Info Styles */
-        .user-info {
-            display: flex;
-            flex-direction: column;
-            margin-right: 1rem;
-        }
-        
-        .user-greeting {
-            font-size: 0.9rem;
-            font-weight: 500;
-            color: white;
-        }
-        
-        .user-account {
-            font-size: 0.8rem;
-            color: rgba(255,255,255,0.8);
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-        
-        .user-account:hover {
-            color: white;
-            text-decoration: underline;
-        }
-
-        .dropdown-menu {
-            z-index: 9999 !important;
-            position: absolute !important;
-        }
-    </style>
+    <meta http-equiv="Cache-Control" content="max-age=604800, public">
 </head>
 <body>
     <header class="main-header sticky-top">
@@ -286,7 +95,7 @@
                                                 <a class="list-group-item" href="#">Martillos</a>
                                                 <a class="list-group-item" href="#">Destornilladores</a>
                                                 <a class="list-group-item" href="#">Llaves</a>
-                                                <a class="list-group-item text-primary" href="{% url 'general_ram' %}">Ver Todos</a>
+                                                <a class="list-group-item text-primary" href="#">Ver Todos</a>
                                             </div>
                                         </div>
                                         <div class="col-md-3">
@@ -392,10 +201,9 @@
             </div>
         </nav>
     </header>
-
-     <div class="offcanvas offcanvas-end offcanvasCart" tabindex="-2" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+    <div class="offcanvas offcanvas-end offcanvasCart" tabindex="-2" id="offcanvasRight">
         <div class="offcanvas-header">
-            <h5 class="offcanvas-title fw-bold fs-5" id="offcanvasRightLabel">Resumen</h5>
+            <h5 class="offcanvas-title fw-bold fs-5">Resumen</h5>
             <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body">
@@ -405,26 +213,29 @@
                         <div class="product-item container-fluid">
                             <div class="row">
                                 <div class="col-4">
-                                    <a href="{% url 'detalle_producto' value.codigo %}">
-                                         <div class="container d-flex align-items-center justify-content-center" style="width: 100%; height: 100%;">
-                                             <img src="{{ value.imagen }}" alt="{{ value.nombre }}" class="img-fluid">
-                                         </div>
-                                     </a>
-                                 </div>
+                                    <div class="container d-flex align-items-center justify-content-center" style="width: 100%; height: 100%;">
+                                        <img src="{{ value.imagen }}" alt="{{ value.nombre }}" class="img-fluid">
+                                    </div>
+                                </div>
                                 <div class="col-8 product-details">
                                     <p class="product-name">{{ value.nombre }}</p>
                                     <div class="d-flex justify-content-between">
+                                        <p>Precio unitario:</p>
+                                        <p>${{ value.precio|floatformat:0 }}</p>
+                                    </div>
+                                    <div class="d-flex justify-content-between">
                                         <p>Total:</p>
-                                        <p class="product-price" data-acumulado-normal="{{ value.acumulado_normal }}"></p>
+                                        <p>${{ total_carrito }}</p>
                                     </div>
                                     <div class="cantidadProductos">
-                                        <a href="{% url 'Sub' value.codigo %}" class="badge btn btn-dark badge-dark">-</a>
-                                        <span class="mx-2">{{ value.cantidad }}</span>
-                                        <a href="{% url 'Add' value.codigo %}" class="badge btn btn-dark badge-dark {% if value.cantidad >= value.stock %}disabled{% endif %}">+</a>
+                                        {% if value.codigo %}
+                                            <a href="{% url 'Sub' value.codigo %}" class="badge btn btn-dark badge-dark">-</a>
+                                            <span class="mx-2">{{ value.cantidad }}</span>
+                                            <a href="{% url 'Add' value.codigo %}" class="badge btn btn-dark badge-dark {% if value.cantidad >= value.stock %}disabled{% endif %}">+</a>
+                                        {% else %}
+                                            <span class="text-danger">Error: Producto sin código</span>
+                                        {% endif %}
                                     </div>
-                                    {% if value.cantidad >= value.stock %}
-                                        <p class="stock-warning">No puedes agregar más de este producto. Stock disponible: {{ value.stock }}</p>
-                                    {% endif %}
                                 </div>
                             </div>
                         </div>
@@ -436,8 +247,8 @@
 
             <div class="resumenFijo">
                 <div class="d-flex justify-content-between">
-                    <p>Otro medio de pago:</p>
-                    <p class="product-price fs-5" data-total-normal="{{total_carrito_normal}}"></p>
+                    <p class="fw-bold">Total a pagar:</p>
+                    <p class="fw-bold fs-5">${{ total_carrito|floatformat:0 }}</p>
                 </div>
                 <div class="row text-center mt-3">
                     <div class="col-6"><a href="{% url 'CLS' %}" class="btn btn-danger text-white w-100 mt-2 fw-semibold shadow-sm">Vaciar carrito</a></div>
@@ -446,85 +257,6 @@
             </div>
         </div>
     </div>
-
-    <style>
-        .offcanvas-end {
-            width: 70%; 
-            max-width: 100%;
-            transform: translateX(100%); 
-            transition: transform 0.3s ease-in-out; 
-        }
-
-        .offcanvas.show {
-            transform: translateX(0); 
-        }
-
-        .offcanvas-body {
-            display: flex;
-            flex-direction: column;
-            padding-bottom: 100px; 
-        }
-
-        .product-list {
-            flex-grow: 1;
-            overflow-y: auto;
-            max-height: calc(100vh - 200px);
-            padding: 10px;
-            margin-bottom: 20px; 
-        }
-
-        .product-item {
-            background-color: white;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            padding: 15px;
-            margin-bottom: 20px;
-            position: relative;
-        }
-
-        .product-item img {
-            max-width: 100%;
-            border-radius: 10px;
-        }
-
-        .product-details {
-            font-size: 14px;
-        }
-
-        .cantidadProductos {
-            display: flex;
-            align-items: center;
-            margin-top: 10px;
-        }
-
-        .cantidadProductos .badge {
-            cursor: pointer;
-        }
-
-        .resumenFijo {
-            position: sticky;
-            bottom: 0;
-            background-color: white;
-            padding: 15px;
-            box-shadow: 0 -2px 10px rgba(0,0,0,0.1); 
-            z-index: 10;
-        }
-
-        .resumenFijo p {
-            margin: 0;
-        }
-
-        .btn-danger {
-            background-color: #dc3545;
-            border-color: #dc3545;
-        }
-
-        .stock-warning {
-            color: #dc3545;
-            font-size: 12px;
-        }
-    </style>
-    
 
     <main class="mb-5">
         {% block contenido %}

@@ -1,116 +1,165 @@
 {% extends 'gt_store/base_general.html' %}
 {% block contenido %}
-<div class="container mt-4">
-    <div class="row">
-        <div class="col-lg-6 mb-4">
-            <div class="card">
-                <div class="card-body">
-                    <form method="POST">
-                        {% csrf_token %}
-                        <h2 class="fw-bold fs-5 mb-4">Datos del Usuario</h2>
-                        <div class="mb-3">
-                            <label for="{{  form.nombre_usuario.id_for_label }}" class="form-label">Nombre</label>
-                            {{  form.nombre_usuario }}
-                        </div>
-                        <div class="mb-3">
-                            <label for="{{  form.apellido_usuario.id_for_label }}" class="form-label">Apellido</label>
-                            {{  form.apellido_usuario }}
-                        </div>
-                        <div class="mb-3">
-                            <label for="{{  form.telefono_usuario.id_for_label }}" class="form-label">Teléfono</label>
-                            {{  form.telefono_usuario }}
-                        </div>
-                        <div class="mb-3">
-                            <label for="{{  form.email_usuario.id_for_label }}" class="form-label">Email</label>
-                            {{  form.email_usuario }}
-                        </div>
-                        <div class="mb-3">
-                            <label for="{{  form.rut_usuario.id_for_label }}" class="form-label">RUT</label>
-                            {{  form.rut_usuario }}
-                        </div>
-
-                        <h2 class="fw-bold fs-5 mb-4">Dirección</h2>
-                        <div class="mb-3">
-                            <label for="{{  form.calle.id_for_label }}" class="form-label">Calle</label>
-                            {{  form.calle }}
-                        </div>
-                        <div class="mb-3">
-                            <label for="{{  form.numero.id_for_label }}" class="form-label">Número</label>
-                            {{  form.numero }}
-                        </div>
-                        <div class="mb-3">
-                            <label for="{{  form.depto_casa.id_for_label }}" class="form-label">Depto/Casa</label>
-                            {{  form.depto_casa }}
-                        </div>
-                        <div class="mb-3">
-                            <label for="{{  form.nombre_receptor.id_for_label }}" class="form-label">Nombre Receptor</label>
-                            {{  form.nombre_receptor }}
-                        </div>
-                        <div class="mb-3">
-                            <label for="{{  form.apellido_receptor.id_for_label }}" class="form-label">Apellido Receptor</label>
-                            {{  form.apellido_receptor }}
-                        </div>
-                        <div class="mb-3">
-                            <label for="{{  form.rut_receptor.id_for_label }}" class="form-label">RUT Receptor</label>
-                            {{  form.rut_receptor }}
-                        </div>
-                        <div class="mb-3">
-                            <label for="{{  form.telefono_receptor.id_for_label }}" class="form-label">Teléfono Receptor</label>
-                            {{  form.telefono_receptor }}
-                        </div>
-                        <div class="mb-3">
-                            <label for="{{  form.region.id_for_label }}" class="form-label">Región</label>
-                            {{  form.region }}
-                        </div>
-                        <div class="mb-3">
-                            <label for="{{  form.comuna.id_for_label }}" class="form-label">Comuna</label>
-                            {{  form.comuna }}
-                        </div>
-                        <button type="submit" class="btn btn-info text-white w-100 mt-2 fw-semibold shadow-sm border-info">Realizar pago</button>
-                    </form>
+<div class="checkout-container">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-7 mb-4">
+                <div class="card form-card">
+                    <div class="form-header">
+                        <h2 class="h5 mb-0">Información de Compra</h2>
+                    </div>
+                    <div class="card-body">
+                        <form method="POST">
+                            {% csrf_token %}
+                            
+                            <h3 class="form-section-title">Datos Personales</h3>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="{{ form.nombre_usuario.id_for_label }}" class="form-label required-field">Nombre</label>
+                                    {{ form.nombre_usuario }}
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="{{ form.apellido_usuario.id_for_label }}" class="form-label required-field">Apellido</label>
+                                    {{ form.apellido_usuario }}
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="{{ form.rut_usuario.id_for_label }}" class="form-label required-field">RUT</label>
+                                    {{ form.rut_usuario }}
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="{{ form.telefono_usuario.id_for_label }}" class="form-label required-field">Teléfono</label>
+                                    {{ form.telefono_usuario }}
+                                </div>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="{{ form.email_usuario.id_for_label }}" class="form-label required-field">Email</label>
+                                {{ form.email_usuario }}
+                                <small class="text-muted">Recibirás el comprobante aquí</small>
+                            </div>
+                            
+                            <h3 class="form-section-title">Dirección de Envío</h3>
+                            <div class="row">
+                                <div class="col-md-8 mb-3">
+                                    <label for="{{ form.calle.id_for_label }}" class="form-label required-field">Calle</label>
+                                    {{ form.calle }}
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label for="{{ form.numero.id_for_label }}" class="form-label required-field">Número</label>
+                                    {{ form.numero }}
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="{{ form.depto_casa.id_for_label }}" class="form-label">Depto/Casa (Opcional)</label>
+                                    {{ form.depto_casa }}
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="{{ form.region.id_for_label }}" class="form-label required-field">Región</label>
+                                    {{ form.region }}
+                                </div>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="{{ form.comuna.id_for_label }}" class="form-label required-field">Comuna</label>
+                                {{ form.comuna }}
+                            </div>
+                            
+                            <h3 class="form-section-title">Datos del Receptor</h3>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="{{ form.nombre_receptor.id_for_label }}" class="form-label">Nombre Receptor</label>
+                                    {{ form.nombre_receptor }}
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="{{ form.apellido_receptor.id_for_label }}" class="form-label">Apellido Receptor</label>
+                                    {{ form.apellido_receptor }}
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="{{ form.rut_receptor.id_for_label }}" class="form-label">RUT Receptor</label>
+                                    {{ form.rut_receptor }}
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="{{ form.telefono_receptor.id_for_label }}" class="form-label">Teléfono Receptor</label>
+                                    {{ form.telefono_receptor }}
+                                </div>
+                            </div>
+                            
+                            <div class="d-grid mt-4">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-pagar text-white">
+                                    <i class="bi bi-lock-fill me-2"></i>Realizar Pago Seguro
+                                </button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col-lg-6 mb-4">
-            <div class="card">
-                <div class="card-body">
-                    <h2 class="fw-bold fs-5 mb-4">Resumen del Carrito</h2>
-                    <div class="product-list">
-                        {% if request.session.carrito.items %}
-                            {% for key, value in request.session.carrito.items %}
-                                <div class="product-item mb-3">
-                                    <div class="row">
-                                        <div class="col-4">
-                                            <a href="{% url 'detalle_producto' value.producto_id %}">
-                                                <div class="container d-flex align-items-center justify-content-center">
-                                                    <img src="{{ value.imagen }}" alt="{{ value.nombre }}" class="img-fluid">
-                                                </div>
-                                            </a>
+            
+            <div class="col-lg-5 mb-4">
+                <div class="card summary-card">
+                    <div class="summary-header">
+                        <h2 class="h5 mb-0">Resumen de tu Pedido</h2>
+                    </div>
+                    <div class="d-grid mt-4">
+                        {% if valor_dolar and valor_euro %}
+                            <div class="mb-3">
+                                <p class="mb-1"><strong>Equivalente en otras monedas:</strong></p>
+                                <ul class="list-unstyled">
+                                    <li><i class="bi bi-currency-dollar me-1"></i> USD: {{ total_usd|floatformat:2 }} (1 USD = {{ valor_dolar|floatformat:2 }} CLP)</li>
+                                    <li><i class="bi bi-currency-euro me-1"></i> EUR: {{ total_eur|floatformat:2 }} (1 EUR = {{ valor_euro|floatformat:2 }} CLP)</li>
+                                </ul>
+                            </div>
+                        {% else %}
+                            <p class="text-danger">No se pudo obtener el valor actualizado del dólar/euro</p>
+                            <!-- Información de depuración -->
+                            <div class="debug-info" style="background: #f8f9fa; padding: 10px; border-radius: 5px;">
+                                <p><strong>Información de depuración:</strong></p>
+                                <p>Valor dólar: {{ valor_dolar|default:"None" }}</p>
+                                <p>Valor euro: {{ valor_euro|default:"None" }}</p>
+                                <p>Total CLP: {{ total_carrito }}</p>
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="card-body">
+                        <div class="product-list">
+                            {% if request.session.carrito.items %}
+                                {% for key, value in request.session.carrito.items %}
+                                    <div class="product-item d-flex" >
+                                        <div class="flex-shrink-0">
+                                            <img src="{{ value.imagen|default:'/static/gt_store/img/placeholder-product.png' }}" 
+                                                 alt="{{ value.nombre }}" 
+                                                 class="product-img">
                                         </div>
-                                        <div class="col-8 product-details">
-                                            <p class="product-name">{{ value.nombre }}</p>
+                                        <div class="flex-grow-1 ms-3" style: "padding: 20px;">
+                                            <h5 class="product-name">{{ value.nombre }}</h5>
                                             <div class="d-flex justify-content-between">
-                                                <p class="fw-bold">Total pago con transferencia:</p>
-                                                <p class="product-price" data-acumulado-transferencia="{{ value.acumulado_transferencia }}"></p>
+                                                <span class="text-muted">Cantidad: {{ value.cantidad }}</span>
+                                                <span class="product-price">${{ value.precio|floatformat:0 }} c/u</span>
                                             </div>
-                                            <div class="d-flex justify-content-between">
-                                                <p>Total otros medios de pago:</p>
-                                                <p class="product-price" data-acumulado-normal="{{ value.acumulado_normal }}"></p>
+                                            <div class="d-flex justify-content-between mt-2">
+                                                <span class="text-muted">Subtotal:</span>
+                                                <span class="product-price fw-bold">${{ total_carrito }}</span>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            {% endfor %}
-                        {% endif %}
-                    </div>
-                    <div class="resumenFijo">
-                        <div class="d-flex justify-content-between">
-                            <p class="fw-bold">Pago con transferencia:</p>
-                            <p class="product-price fw-bold fs-5 text-success" data-total-transferencia="{{ total_carrito_transferencia }}"></p>
+                                {% endfor %}
+                            {% else %}
+                                <p class="text-muted">No hay productos en el carrito</p>
+                            {% endif %}
                         </div>
-                        <div class="d-flex justify-content-between">
-                            <p>Otro medio de pago:</p>
-                            <p class="product-price fs-5" data-total-normal="{{ total_carrito_normal }}"></p>
+                        <div class="mt-4">
+                            <div class="d-flex align-items-center mb-2">
+                                <i class="bi bi-shield-check text-success me-2"></i>
+                                <small>Compra 100% segura con protección al comprador</small>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -118,4 +167,5 @@
         </div>
     </div>
 </div>
+
 {% endblock %}
