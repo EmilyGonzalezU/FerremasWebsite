@@ -1,0 +1,47 @@
+{% extends 'gt_store/base_general.html' %}
+
+{% block contenido %}
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card shadow-lg border-0">
+                <div class="card-header bg-danger text-white">
+                    <h2 class="mb-0 text-center">
+                        <i class="fas fa-times-circle me-2"></i> Pago Rechazado
+                    </h2>
+                </div>
+                <div class="card-body text-center py-4">
+                    <div class="mb-4">
+                        <i class="fas fa-times-circle fa-5x text-danger mb-3"></i>
+                        <h3 class="text-danger">Lo sentimos</h3>
+                        <p class="lead">Tu pago no pudo ser procesado.</p>
+                    </div>
+                    
+                    <div class="alert alert-warning mb-4">
+                        <h5 class="alert-heading">Código de error: {{ codigo_error }}</h5>
+                        <p class="mb-0">{{ mensaje_error }}</p>
+                    </div>
+                    
+                    <div class="row justify-content-center">
+                        <div class="col-md-8">
+                            <div class="d-grid gap-2">
+                                <a href="{% url 'datos_usuario_compra' %}" class="btn btn-primary">
+                                    <i class="fas fa-credit-card me-2"></i> Intentar nuevamente
+                                </a>
+                                <a href="{% url 'carrito' %}" class="btn btn-outline-secondary">
+                                    <i class="fas fa-shopping-cart me-2"></i> Ver carrito
+                                </a>
+                                <a href="{% url 'inicio' %}" class="btn btn-outline-dark">
+                                    <i class="fas fa-store me-2"></i> Volver a la tienda
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <p class="text-muted mt-4">Si crees que esto es un error, por favor contáctanos.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

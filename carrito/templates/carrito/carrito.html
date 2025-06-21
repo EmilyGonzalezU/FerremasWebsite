@@ -8,56 +8,87 @@
             <div class="product-list">
                 {% if request.session.carrito.items %}
                     {% for key, value in request.session.carrito.items %}
-                        <div class="product-item container-fluid mb-3">
-                            <div class="row">
-                                <div class="col-md-4 col-12 mb-2 mb-md-0">
-                                    <a href="{% url 'detalle_producto' value.codigo %}">
-                                         <div class="container d-flex align-items-center justify-content-center" style="width: 100%; height: 100%;">
-                                             <img src="{{ value.imagen }}" alt="{{ value.nombre }}" class="img-fluid">
-                                         </div>
-                                     </a>
-                                 </div>
-                                <div class="col-md-8 col-12">
-                                    <p class="product-name">{{ value.nombre }}</p>
-                                    <div class="d-flex justify-content-between">
-                                        <p>Total:</p>
-                                        <p class="product-price" data-acumulado-normal="{{ value.precio }}"></p>
+                        <div class="product-item card shadow-sm mb-4 border-0">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-4 col-12 mb-3 mb-md-0">
+                                        <a href="{% url 'detalle_producto' value.codigo %}" class="d-block h-100">
+                                            <div class="product-image-container d-flex align-items-center justify-content-center p-3">
+                                                <img src="{{ value.imagen }}" alt="{{ value.nombre }}" class="img-fluid mh-100">
+                                            </div>
+                                        </a>
                                     </div>
-                                    <div class="cantidadProductos d-flex align-items-center">
-                                        <a href="{% url 'Sub' value.codigo %}" class="badge btn btn-dark badge-dark">-</a>
-                                        <span class="mx-2">{{ value.cantidad }}</span>
-                                        <a href="{% url 'Add' value.codigo %}" class="badge btn btn-dark badge-dark {% if value.cantidad >= value.stock %}disabled{% endif %}">+</a>
+                                    <div class="col-md-8 col-12 d-flex flex-column">
+                                        <h5 class="product-name mb-2 text-dark">{{ value.nombre }}</h5>
+                                        
+                                        <div class="d-flex justify-content-between align-items-center mb-2">
+                                            <span class="text-muted">Precio unitario:</span>
+                                            <span class="product-price fw-bold" style="color: #131a55;">${{ value.precio|intcomma }}</span>
+                                        </div>
+                                        
+                                        <div class="d-flex justify-content-between align-items-center mb-3">
+                                            <span class="text-muted">Subtotal:</span>
+                                            <span class="product-subtotal fw-bold" style="color: #FF8C00;">${{ value.acumulado|intcomma }}</span>
+                                        </div>
+                                        
+                                        <div class="cantidadProductos d-flex align-items-center mb-3">
+                                            <a href="{% url 'Sub' value.codigo %}" class="btn btn-outline-secondary px-3">-</a>
+                                            <span class="mx-3 fw-bold">{{ value.cantidad }}</span>
+                                            <a href="{% url 'Add' value.codigo %}" class="btn btn-outline-secondary px-3 {% if value.cantidad >= value.stock %}disabled{% endif %}">+</a>
+                                        </div>
+                                        
+                                        {% if value.cantidad >= value.stock %}
+                                            <div class="alert alert-warning p-2 mb-0">
+                                                <small><i class="fas fa-exclamation-circle me-1"></i> Límite de stock: {{ value.stock }} unidades disponibles</small>
+                                            </div>
+                                        {% endif %}
                                     </div>
-                                    {% if value.cantidad >= value.stock %}
-                                        <p class="stock-warning mt-2">No puedes agregar más de este producto. Stock disponible: {{ value.stock }}</p>
-                                    {% endif %}
                                 </div>
                             </div>
                         </div>
                     {% endfor %}
                 {% else %}
-                    <p>No hay productos en el carrito.</p>
+                    <div class="card shadow-sm border-0">
+                        <div class="card-body text-center py-5">
+                            <i class="fas fa-shopping-cart fa-3x mb-3" style="color: #6c757d;"></i>
+                            <h5 class="text-muted">Tu carrito está vacío</h5>
+                            <a href="{% url 'inicio' %}" class="btn mt-3" style="background-color: #FF8C00; color: white;">Explorar productos</a>
+                        </div>
+                    </div>
                 {% endif %}
             </div>
         </div>
         <div class="col-lg-3 col-md-4 col-12">
-            <div class="resumenFijo sticky-top mt-4 mt-md-0">
-                <div class="d-flex justify-content-between">
-                    <p>Total:</p>
-                    <p class="product-price fs-5" data-total-normal="{{total_carrito}}"></p>
-                </div>
-                <div class="row text-center mt-3">
-                    {% if request.session.user_nombre  %}
-                        {% if  request.session.carrito.items %}
-                            <div class="col-12 mb-2">
-                              <a href="{% url 'datos_usuario_compra' %}" class="btn btn-info text-white w-100 mt-2 fw-semibold shadow-sm">Continuar con la compra</a>
-                            </div>
-                        {% endif %}
-                    {% else %}
-                        {% if  request.session.carrito.items %}
-                            <div class="col-12 mb-2">
-                                <a href="{% url 'tipo_usuario' %}" class="btn btn-info text-white w-100 mt-2 fw-semibold shadow-sm">Continuar con la compra</a>
-                            </div>
+            <div class="resumenFijo card shadow-sm border-0 sticky-top">
+                <div class="card-body">
+                    <h5 class="card-title mb-4">Resumen de compra</h5>
+                    
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <span class="text-muted">Subtotal:</span>
+                        <span class="fw-bold" style="color: #131a55;">${{ total_carrito|intcomma }}</span>
+                    </div>
+                    
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <span class="text-muted">Envío:</span>
+                        <span class="fw-bold">Gratis</span>
+                    </div>
+                    
+                    <hr>
+                    
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <span class="fw-bold">Total:</span>
+                        <span class="fs-5 fw-bold" style="color: #FF8C00;">${{ total_carrito|intcomma }}</span>
+                    </div>
+                    
+                    {% if request.session.carrito.items %}
+                        {% if request.session.user_nombre %}
+                            <a href="{% url 'datos_usuario_compra' %}" class="btn w-100 py-2 fw-bold" style="background-color: #FF8C00; color: white;">
+                                Continuar con la compra
+                            </a>
+                        {% else %}
+                            <a href="{% url 'tipo_usuario' %}" class="btn w-100 py-2 fw-bold" style="background-color: #FF8C00; color: white;">
+                                Continuar con la compra
+                            </a>
                         {% endif %}
                     {% endif %}
                 </div>
@@ -67,4 +98,3 @@
     </div>
 </div>
 {% endblock %}
-

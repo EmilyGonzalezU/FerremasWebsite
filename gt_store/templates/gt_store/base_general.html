@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block tittle %}FerreMas - Herramientas y Materiales{% endblock %}</title>
+    <title>{% block title %}FerreMas - Herramientas y Materiales{% endblock %}</title>
     
     <!-- Favicon -->
     <link rel="icon" href="{% static 'gt_store/img/Logos/FERREMAS.png' %}" type="image/x-icon">
@@ -23,10 +23,6 @@
     <!-- Owl Carousel -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
-    
-    <!-- Slick Carousel -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css">
     
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{% static 'gt_store/Styles/style2.css' %}">
@@ -84,156 +80,75 @@
                 </button>
                 <div class="collapse navbar-collapse align-content-center" id="mainNav">
                     <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
-                        <li class="nav-item dropdown dropdown-mega position-static">
-                            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Herramientas</a>
-                            <div class="dropdown-menu mega-menu w-100">
-                                <div class="container py-3">
-                                    <div class="row">
-                                        <div class="col-md-3">
-                                            <h5>Herramientas Manuales</h5>
-                                            <div class="list-group list-group-flush">
-                                                <a class="list-group-item" href="#">Martillos</a>
-                                                <a class="list-group-item" href="#">Destornilladores</a>
-                                                <a class="list-group-item" href="#">Llaves</a>
-                                                <a class="list-group-item text-primary" href="#">Ver Todos</a>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <h5>Herramientas Eléctricas</h5>
-                                            <div class="list-group list-group-flush">
-                                                <a class="list-group-item" href="#">Taladros</a>
-                                                <a class="list-group-item" href="#">Sierras</a>
-                                                <a class="list-group-item" href="#">Lijadoras</a>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <h5>Accesorios</h5>
-                                            <div class="list-group list-group-flush">
-                                                <a class="list-group-item" href="#">Brocas</a>
-                                                <a class="list-group-item" href="#">Discos</a>
-                                                <a class="list-group-item" href="#">Baterías</a>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <div class="promo-card bg-light p-3 rounded text-center h-100">
-                                                <h6 class="text-primary">Ofertas Especiales</h6>
-                                                <p class="small">En herramientas seleccionadas</p>
-                                                <img src="{% static 'gt_store/img/promo-tools.png' %}" alt="Ofertas" class="img-fluid mt-2">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                        <!-- Herramientas Manuales -->
+                        <li class="nav-item  position-static">
+                            <a class="nav-link" href="{% url 'herramientas_manuales' %}">Herramientas Manuales</a>
+                        </li>
+                        <!-- Materiales Básicos -->
+                        <li class="nav-item  position-static">
+                            <a class="nav-link" href="{% url 'materiales_basicos' %}">Materiales Básicos</a>
+                        </li>
+                        <!-- Seguridad -->
+                        <li class="nav-item  position-static">
+                            <a class="nav-link " href="{% url 'equipos_seguridad' %}">Seguridad</a>
                         </li>
                         
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Fijaciones</a>
-                        </li>
-                        
-                        <li class="nav-item dropdown dropdown-mega position-static">
-                            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Materiales</a>
-                            <div class="dropdown-menu mega-menu w-100">
-                                <div class="container py-3">
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <h5>Materiales Básicos</h5>
-                                            <div class="list-group list-group-flush">
-                                                <a class="list-group-item" href="#">Cemento</a>
-                                                <a class="list-group-item" href="#">Arena</a>
-                                                <a class="list-group-item" href="#">Ladrillos</a>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <h5>Acabados</h5>
-                                            <div class="list-group list-group-flush">
-                                                <a class="list-group-item" href="#">Pinturas</a>
-                                                <a class="list-group-item" href="#">Barnices</a>
-                                                <a class="list-group-item" href="#">Cerámicas</a>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="promo-card bg-light p-3 rounded text-center h-100">
-                                                <h6 class="text-primary">Materiales Destacados</h6>
-                                                <p class="small">Calidad garantizada</p>
-                                                <img src="{% static 'gt_store/img/promo-materials.png' %}" alt="Materiales" class="img-fluid mt-2">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Tornillería</a>
-                        </li>
-                        
-                        <li class="nav-item dropdown dropdown-mega position-static">
-                            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Seguridad</a>
-                            <div class="dropdown-menu mega-menu w-100">
-                                <div class="container py-3">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <h5>Equipos de Protección</h5>
-                                            <div class="list-group list-group-flush">
-                                                <a class="list-group-item" href="#">Cascos</a>
-                                                <a class="list-group-item" href="#">Guantes</a>
-                                                <a class="list-group-item" href="#">Lentes</a>
-                                                <a class="list-group-item" href="#">Chalecos</a>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="promo-card bg-light p-3 rounded text-center h-100">
-                                                <h6 class="text-primary">Seguridad Primero</h6>
-                                                <p class="small">Equípate con lo mejor</p>
-                                                <img src="{% static 'gt_store/img/1.png' %}" alt="Seguridad" class="img-fluid mt-2">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Medición</a>
-                        </li>
                     </ul>
                 </div>
             </div>
         </nav>
     </header>
-    <div class="offcanvas offcanvas-end offcanvasCart" tabindex="-2" id="offcanvasRight">
-        <div class="offcanvas-header">
-            <h5 class="offcanvas-title fw-bold fs-5">Resumen</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+
+    <div class="offcanvas offcanvas-end offcanvasCart" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+        <div class="offcanvas-header text-white" style="background-color: #131a55; color: white;">
+            <h5 class="offcanvas-title fw-bold fs-5" id="offcanvasRightLabel">
+                <i class="bi bi-cart3 me-2"></i> Tu Carrito
+            </h5>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
-        <div class="offcanvas-body">
-            <div class="product-list">
+        <div class="offcanvas-body p-0 d-flex flex-column">
+            <div class="product-list flex-grow-1" style="overflow-y: auto;">
                 {% if request.session.carrito.items %}
                     {% for key, value in request.session.carrito.items %}
-                        <div class="product-item container-fluid">
-                            <div class="row">
-                                <div class="col-4">
-                                    <div class="container d-flex align-items-center justify-content-center" style="width: 100%; height: 100%;">
-                                        <img src="{{ value.imagen }}" alt="{{ value.nombre }}" class="img-fluid">
+                        <div class="product-item container-fluid border-bottom py-3">
+                            <div class="row align-items-center">
+                                <div class="col-4 col-md-3">
+                                    <div class="ratio ratio-1x1 bg-light rounded">
+                                        <img src="{{ value.imagen }}" alt="{{ value.nombre }}" class="img-fluid p-2 object-fit-contain">
                                     </div>
                                 </div>
-                                <div class="col-8 product-details">
-                                    <p class="product-name">{{ value.nombre }}</p>
-                                    <div class="d-flex justify-content-between">
-                                        <p>Precio unitario:</p>
-                                        <p>${{ value.precio|floatformat:0 }}</p>
+                                <div class="col-8 col-md-9 product-details">
+                                    <div class="d-flex justify-content-between align-items-start">
+                                        <p class="product-name fw-bold mb-1">{{ value.nombre|truncatechars:30 }}</p>
+                                        <a href="{% url 'Del' value.codigo %}" class="text-danger small" title="Eliminar">
+                                            <i class="bi bi-trash"></i>
+                                        </a>
                                     </div>
-                                    <div class="d-flex justify-content-between">
-                                        <p>Total:</p>
-                                        <p>${{ total_carrito }}</p>
+                                    
+                                    <div class="d-flex justify-content-between small mb-1">
+                                        <span class="text-muted">Precio unitario:</span>
+                                        <span>${{ value.precio|floatformat:0 }}</span>
                                     </div>
-                                    <div class="cantidadProductos">
+                                    
+                                    <div class="d-flex justify-content-between small mb-2">
+                                        <span class="text-muted">Subtotal:</span>
+                                        <span class="fw-bold">
+                                            {% if value.cantidad == 1 %}
+                                                ${{ value.precio|floatformat:0 }}
+                                            {% else %}
+                                                ${{ value.acumulado|floatformat:0 }}
+                                            {% endif %}
+                                        </span>
+                                    </div>
+                                    
+                                    <div class="cantidadProductos d-flex align-items-center">
                                         {% if value.codigo %}
-                                            <a href="{% url 'Sub' value.codigo %}" class="badge btn btn-dark badge-dark">-</a>
-                                            <span class="mx-2">{{ value.cantidad }}</span>
-                                            <a href="{% url 'Add' value.codigo %}" class="badge btn btn-dark badge-dark {% if value.cantidad >= value.stock %}disabled{% endif %}">+</a>
+                                            <a href="{% url 'Sub' value.codigo %}" class="btn btn-sm btn-outline-secondary px-2 py-0">-</a>
+                                            <span class="mx-2 fw-bold">{{ value.cantidad }}</span>
+                                            <a href="{% url 'Add' value.codigo %}" class="btn btn-sm btn-outline-secondary px-2 py-0 {% if value.cantidad >= value.stock %}disabled{% endif %}">+</a>
+                                            <small class="ms-2 text-muted">Stock: {{ value.stock }}</small>
                                         {% else %}
-                                            <span class="text-danger">Error: Producto sin código</span>
+                                            <span class="text-danger small">Error: Producto sin código</span>
                                         {% endif %}
                                     </div>
                                 </div>
@@ -241,20 +156,45 @@
                         </div>
                     {% endfor %}
                 {% else %}
-                    <p>No hay productos en el carrito.</p>
+                    <div class="text-center py-5">
+                        <i class="bi bi-cart-x display-4 text-muted"></i>
+                        <p class="mt-3">Tu carrito está vacío</p>
+                        <a href="{% url 'inicio' %}" class="btn btn-primary mt-2" data-bs-dismiss="offcanvas">
+                            <i class="bi bi-arrow-left me-1"></i> Seguir comprando
+                        </a>
+                    </div>
                 {% endif %}
             </div>
 
-            <div class="resumenFijo">
-                <div class="d-flex justify-content-between">
-                    <p class="fw-bold">Total a pagar:</p>
-                    <p class="fw-bold fs-5">${{ total_carrito|floatformat:0 }}</p>
+            {% if request.session.carrito.items %}
+            <div class="resumenFijo border-top bg-light p-3">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <span class="fw-bold">Subtotal:</span>
+                    <span class="fw-bold">${{ total_carrito|floatformat:0 }}</span>
                 </div>
-                <div class="row text-center mt-3">
-                    <div class="col-6"><a href="{% url 'CLS' %}" class="btn btn-danger text-white w-100 mt-2 fw-semibold shadow-sm">Vaciar carrito</a></div>
-                    <div class="col-6"><a href="{% url 'carrito' %}" class="btn btn-info text-white w-100 mt-2 fw-semibold shadow-sm">Ver carrito</a></div>
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <span class="fw-bold">Total:</span>
+                    <span class="fw-bold fs-5 " style="color: #FF8C00;">${{ total_carrito|floatformat:0 }}</span>
+                </div>
+                
+                <div class="row g-2">
+                    <div class="col-6">
+                        <a href="{% url 'CLS' %}" class="btn btn-outline-danger w-100 fw-semibold">
+                            <i class="bi bi-trash me-1"></i> Vaciar
+                        </a>
+                    </div>
+                    <div class="col-6">
+                        <a href="{% url 'carrito' %}" class="btn w-100 fw-semibold" style="background-color: #FF8C00; color: white;">
+                            <i class="bi bi-credit-card me-1"></i> Pagar
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="mt-3 text-center small text-muted">
+                    <i class="bi bi-lock-fill me-1"></i> Compra segura y protegida
                 </div>
             </div>
+            {% endif %}
         </div>
     </div>
 
@@ -327,34 +267,20 @@
         </div>
     </footer>
 
-   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    
     <!-- jQuery -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
     <!-- Owl Carousel JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js" integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+    
     <!-- Google Maps API -->
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDyMudUDq9GoN9KwzuoAndo0C8Svo4UHGE&libraries=places&callback=initMap" defer></script>
-    <!--Slick Carousel js-->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
 
     <script>
-        //Modal inicio sesion
-        document.getElementById('openModalBtn').addEventListener('click', function () {
-            $('#loginModal').modal('show');
-        });
-    </script>
-    
-    <script>
-        $(document).ready(function () {
-            $("#carousel1").owlCarousel({
-                items: 1,
-                loop: true,
-                autoplay: true,
-                autoplaySpeed: 2000,
-            });
-        });
-    </script>
-    <script>
+        // Formateo de números
         function formatNumber(number) {
             return '$' + number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
         }
@@ -386,8 +312,24 @@
         document.querySelectorAll('[data-total-normal]').forEach(el => {
             el.innerText = formatNumber(el.getAttribute('data-total-normal'));
         });
+
+        // Inicialización del mapa
+        function initMap() {
+            const location = { lat: -33.0245, lng: -71.5518 }; // Coordenadas de Viña del Mar
+            const map = new google.maps.Map(document.getElementById("map"), {
+                zoom: 15,
+                center: location,
+                disableDefaultUI: true
+            });
+            new google.maps.Marker({
+                position: location,
+                map: map,
+                title: "FerreMas"
+            });
+        }
     </script>
-    <script src="{% static 'gt_store/js/apiMaps.js' %}"></script>
+
+    <!-- Scripts locales -->
     <script src="{% static 'gt_store/js/script.js' %}"></script>
     <script src="{% static 'gt_store/js/filtro.js' %}"></script>
     <script src="{% static 'gt_store/js/valInicioSesion.js' %}"></script>

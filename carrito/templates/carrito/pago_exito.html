@@ -1,0 +1,58 @@
+{% extends 'gt_store/base_general.html' %}
+{% block contenido %}
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card shadow-lg border-0">
+                <div class="card-header bg-success text-white">
+                    <h2 class="mb-0 text-center">
+                        <i class="fas fa-check-circle me-2"></i> Pago Exitoso
+                    </h2>
+                </div>
+                <div class="card-body text-center py-4">
+                    <div class="mb-4">
+                        <i class="fas fa-check-circle fa-5x text-success mb-3"></i>
+                        <h3 class="text-success">¡Gracias por tu compra!</h3>
+                        <p class="lead">Tu pago ha sido procesado correctamente.</p>
+                    </div>
+                    
+                    <div class="row justify-content-center mb-4">
+                        <div class="col-md-8">
+                            <div class="card border-0 bg-light">
+                                <div class="card-body">
+                                    <h5 class="card-title">Detalles de la transacción</h5>
+                                    <hr>
+                                    
+                                    <div class="row text-start">
+                                        <div class="col-6">
+                                            <p class="mb-2"><strong>Orden de compra:</strong></p>
+                                            <p class="mb-2"><strong>Monto:</strong></p>
+                                            <p class="mb-2"><strong>Código autorización:</strong></p>
+                                            <p class="mb-2"><strong>Fecha:</strong></p>
+                                            <p class="mb-2"><strong>Tarjeta:</strong></p>
+                                            <p class="mb-0"><strong>Cuotas:</strong></p>
+                                        </div>
+                                        <div class="col-6">
+                                            <p class="mb-2">{{ buy_order }}</p>
+                                            <p class="mb-2">${{ amount|intcomma }}</p>
+                                            <p class="mb-2">{{ authorization_code }}</p>
+                                            <p class="mb-2">{{ transaction_date }}</p>
+                                            <p class="mb-2">{{ tarjeta }}</p>
+                                            <p class="mb-0">{{ cuotas }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <p class="text-muted">Hemos enviado un correo con los detalles de tu compra.</p>
+                    <a href="{% url 'tienda' %}" class="btn btn-primary mt-3">
+                        <i class="fas fa-store me-2"></i> Volver a la tienda
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

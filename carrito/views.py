@@ -1,6 +1,8 @@
+from typing import Self
 import uuid
 import json
 import logging
+from django.urls import reverse
 import requests
 import xml.etree.ElementTree as ET
 from datetime import datetime, timedelta
@@ -36,11 +38,13 @@ class Carrito:
                 'nombre': producto['nombre'],
                 'precio': float(producto['precio']),
                 'cantidad': 1,
+                'acumulado': float(producto['precio']),
                 'imagen': producto.get('imagen', ''),
                 'stock': producto.get('stock', 10)
             }
         else:
             self.carrito[codigo]['cantidad'] += 1
+            self.carrito[codigo]['acumulado'] = self.carrito[codigo]['precio'] * self.carrito[codigo]['cantidad'] 
         self.guardar()
 
     def guardar(self):
@@ -55,6 +59,7 @@ class Carrito:
     def restar(self, codigo):
         if codigo in self.carrito:
             self.carrito[codigo]['cantidad'] -= 1
+            self.carrito[codigo]['acumulado'] = self.carrito[codigo]['precio'] * self.carrito[codigo]['cantidad']  # Actualiza acumulado
             if self.carrito[codigo]['cantidad'] <= 0:
                 self.eliminar(codigo)
             self.guardar()
@@ -73,8 +78,8 @@ def tienda(request):
 
 def agregar_producto(request, codigo):
     carrito = Carrito(request)
-    api_url = f"http://localhost:5000/api/productos?codigo={codigo}"
-    headers = {"Authorization": "0db5b48e-0027-4ace-9ed8-6a04cd3cd292"}
+    api_url = f"https://ferremasapi.onrender.com/api/productos?codigo={codigo}"
+    headers = {"Authorization": "b0e01ad6-5479-41b5-97a1-1bfd7cddc3d8"}
     
     try:
         response = requests.get(api_url, headers=headers)
@@ -227,7 +232,7 @@ def iniciar_pago_webpay(request):
 
     buy_order = str(int(datetime.now().timestamp()))[:26]
     session_id = request.session.session_key or "sess_" + str(uuid.uuid4())[:8]
-    return_url = request.build_absolute_uri('/webpay/respuesta/')
+    return_url = request.build_absolute_uri(reverse('webpay_respuesta'))
 
     try:
         response = tx.create(buy_order=buy_order, session_id=session_id, amount=total, return_url=return_url)
@@ -241,24 +246,22 @@ def iniciar_pago_webpay(request):
             'token': token,
             'buy_order': buy_order,
             'amount': total,
-            'session_id': session_id
+            'session_id': session_id,
+            'fecha': datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         }
+        
+        logger.info(f"Iniciando pago WebPay - Buy Order: {buy_order}, Amount: {total}")
         return redirect(f"{url}?token_ws={token}")
-
     except Exception as e:
-        logger.error(f"Error al iniciar pago WebPay: {str(e)}", exc_info=True)
-        messages.error(request, f"Error al iniciar el pago: {str(e)}")
+        logger.error(f"Error inesperado al iniciar pago WebPay: {str(e)}", exc_info=True)
+        messages.error(request, "Ocurrió un error inesperado al iniciar el pago")
         return redirect('datos_usuario_compra')
-
-# Procesa la respuesta de WebPay después del pago
 
 def webpay_respuesta(request):
     token = request.GET.get("token_ws")
     if not token:
-        return render(request, "gt_store/pago_error.html", {"error": "Token no proporcionado"})
-
-    webpay_data = request.session.get('webpay_data', {})
-    datos_compra = request.session.get('datos_compra', {})
+        logger.warning("Acceso directo a webpay_respuesta sin token")
+        return redirect('pago_rechazado')
 
     tx = Transaction(WebpayOptions(
         commerce_code=settings.TRANSBANK["commerce_code"],
@@ -268,20 +271,94 @@ def webpay_respuesta(request):
 
     try:
         commit_response = tx.commit(token)
-        if commit_response.response_code == 0:
+        logger.info(f"Respuesta WebPay completa: {vars(commit_response)}")  # Log completo de la respuesta
+        
+        # Verificación más robusta del pago exitoso
+        if getattr(commit_response, 'response_code', None) == 0 and getattr(commit_response, 'status', None) == 'AUTHORIZED':
+            # Guardar datos de la transacción
+            webpay_data = request.session.get('webpay_data', {})
+            transaccion_data = {
+                'buy_order': webpay_data.get('buy_order'),
+                'amount': webpay_data.get('amount'),
+                'authorization_code': getattr(commit_response, 'authorization_code', ''),
+                'payment_type': getattr(commit_response, 'payment_type_code', ''),
+                'response_code': getattr(commit_response, 'response_code', ''),
+                'transaction_date': getattr(commit_response, 'transaction_date', ''),
+                'vci': getattr(commit_response, 'vci', ''),
+                'card_number': getattr(commit_response, 'card_detail', {}).get('card_number', ''),
+                'installments_number': getattr(commit_response, 'installments_number', 0)
+            }
+            
+            # Limpiar carrito y datos de sesión
             request.session.pop('carrito', None)
             request.session.pop('datos_compra', None)
-            request.session.pop('webpay_data', None)
+            request.session['transaccion_exitosa'] = transaccion_data
+            
+            logger.info(f"Transacción exitosa: {transaccion_data}")
             return redirect('pago_exitoso')
         else:
-            error_msg = f"Código de error: {commit_response.response_code}"
-            logger.error(f"Error en WebPay: {error_msg}")
-            return render(request, "gt_store/pago_error.html", {"error": error_msg})
-
+            # Pago rechazado - obtenemos más detalles
+            error_code = getattr(commit_response, 'response_code', 'UNKNOWN')
+            error_msg = get_error_message(error_code)
+            
+            logger.error(f"Pago rechazado. Código: {error_code}, Mensaje: {error_msg}")
+            request.session['error_pago'] = {
+                'codigo': error_code,
+                'mensaje': error_msg,
+                'detalles': str(vars(commit_response))
+            }
+            return redirect('pago_rechazado')
+            
     except Exception as e:
-        logger.error(f"Error en webpay_respuesta: {str(e)}")
-        return render(request, "gt_store/pago_error.html", {"error": "Error al procesar el pago"})
+        logger.error(f"Error inesperado en webpay_respuesta: {str(e)}", exc_info=True)
+        request.session['error_pago'] = {
+            'codigo': 'SYS',
+            'mensaje': "Error inesperado en el sistema",
+            'detalles': str(e)
+        }
+        return redirect('pago_rechazado')
+def pago_exitoso(request):
+    transaccion_data = request.session.get('transaccion_exitosa', {})
+    if not transaccion_data:
+        return redirect('tienda')
+        
+    context = {
+        'buy_order': transaccion_data.get('buy_order'),
+        'amount': transaccion_data.get('amount'),
+        'authorization_code': transaccion_data.get('authorization_code'),
+        'transaction_date': transaccion_data.get('transaction_date'),
+        'tarjeta': f"**** **** **** {transaccion_data.get('card_number', '')[-4:]}",
+        'cuotas': transaccion_data.get('installments_number', 1)
+    }
+    
+    # Limpiar datos de sesión después de mostrarlos
+    request.session.pop('transaccion_exitosa', None)
+    
+    return render(request, 'carrito/pago_exitoso.html', context)
 
+def pago_rechazado(request):
+    error_data = request.session.get('error_pago', {})
+    context = {
+        'codigo_error': error_data.get('codigo', 'DESC'),
+        'mensaje_error': error_data.get('mensaje', 'El pago fue rechazado')
+    }
+    
+    # Limpiar datos de error después de mostrarlos
+    request.session.pop('error_pago', None)
+    
+    return render(request, 'carrito/pago_rechazado.html', context)
+
+def get_error_message(code):
+    """Traduce códigos de error de WebPay a mensajes comprensibles"""
+    error_messages = {
+        '0': 'Aprobado',
+        '-1': 'Rechazo - Error en el ingreso de datos',
+        '-2': 'Rechazo - Error en procesamiento',
+        '-3': 'Rechazo - Error en comunicación con el banco',
+        '-4': 'Rechazo - Transacción rechazada por el banco',
+        '-5': 'Rechazo - Transacción con riesgo de posible fraude'
+    }
+    return error_messages.get(str(code), f'Código de error desconocido: {code}')
 # Obtiene el tipo de cambio desde mindicador.cl como respaldo
 
 def obtener_tipo_cambio(moneda='USD'):

@@ -1,27 +1,6 @@
 {% extends 'gt_store/base_general.html' %}
 {% load static %}
 {% block contenido %}
-
-<!-- Hero Banner -->
-<div class="owl-carousel owl-theme " id="carousel1">
-    <div class="item">
-        <div class="image-container1 d-flex justify-content-center">
-            <img src="{% static 'gt_store/img/Banner/HERRAMIENTAS.png' %}" class="d-block imgBanner" loading="lazy">
-        </div>
-    </div>
-    <div class="item">
-        <div class="image-container1 d-flex justify-content-center">
-            <!--img banner2-->
-            <img src="{% static 'gt_store/img/Banner/FF8C00.png' %} " class="d-block imgBanner" loading="lazy">
-        </div>
-    </div>
-    <div class="item">
-        <div class="image-container1 d-flex justify-content-center">
-            <!--a-->
-            <img src="{% static 'gt_store/img/Banner/HERRAMIENTAS.png' %}" class="d-block imgBanner"  loading="lazy">
-        </div>
-    </div>
-</div>
 <!-- Product Categories -->
 <div class="container-fluid py-5 bg-light">
     <!-- Herramientas Manuales -->
@@ -29,7 +8,7 @@
         <div class="col-12">
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <h2 class="section-title">Herramientas Manuales</h2>
-                <a href="#" class="btn btn-outline-orange">Ver todo</a>
+                <a href="{% url 'herramientas_manuales' %}" class="btn btn-outline-orange">Ver todo</a>
             </div>
             
             <div class="owl-carousel owl-theme product-carousel">
@@ -73,12 +52,6 @@
     </div>
 </div>
 
-<!-- Promo Banner -->
-<div class="promo-banner py-4">
-    <div class="container">
-        <img src="{% static 'gt_store/img/Banner/caca.png' %}" class="img-fluid rounded-3 shadow" alt="Promoción especial">
-    </div>
-</div>
 
 <!-- Materiales Básicos -->
 <div class="container-fluid py-5">
@@ -86,7 +59,7 @@
         <div class="col-12">
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <h2 class="section-title">Materiales Básicos</h2>
-                <a href="#" class="btn btn-outline-orange">Ver todo</a>
+                <a href="{% url 'materiales_basicos' %}" class="btn btn-outline-orange">Ver todo</a>
             </div>
             
             <div class="owl-carousel owl-theme product-carousel">
@@ -100,10 +73,7 @@
                         </div>
                         <a href="{% url 'detalle_producto' producto.codigo %}" class="product-link">
                             <div class="product-img-container">
-                                <img src="{% if producto.imagen %}{{ producto.imagen }}{% else %}{% static 'gt_store/img/placeholder-product.png' %}{% endif %}" 
-                                     class="product-img" 
-                                     alt="{{ producto.nombre}}">
-                            </div>
+                                <img src="{% if producto.imagen %}{{ producto.imagen }}{% else %}{% static 'gt_store/img/placeholder-product.png' %}{% endif %}"  class="product-img" >                            </div>
                             <div class="product-body">
                                 <span class="product-brand">{{ producto.marca|default:"Marca" }}</span>
                                 <h5 class="product-title">{{ producto.nombre }}</h5>
@@ -130,19 +100,13 @@
     </div>
 </div>
 
-<div class="promo-banner py-4">
-    <div class="container">
-        <img src="{% static 'gt_store/img/Banner/caca.png' %}" class="img-fluid rounded-3 shadow" alt="Promoción especial">
-    </div>
-</div>
-
 <!-- Equipos de Seguridad -->
 <div class="container-fluid py-5 bg-light">
     <div class="row px-lg-5">
         <div class="col-12">
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <h2 class="section-title">Equipos de Seguridad</h2>
-                <a href="#" class="btn btn-outline-orange">Ver todo</a>
+                <a href="{% url 'equipos_seguridad' %}" class="btn btn-outline-orange">Ver todo</a>
             </div>
             
             <div class="owl-carousel owl-theme product-carousel">

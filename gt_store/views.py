@@ -16,8 +16,8 @@ logger = logging.getLogger(__name__)
 
 
 def index(request):
-    api_url = "http://localhost:5000/api/productos"
-    headers = {"Authorization": "0db5b48e-0027-4ace-9ed8-6a04cd3cd292"} #Autorizacion x sucursal
+    api_url = "https://ferremasapi.onrender.com/api/productos"
+    headers = {"Authorization": "b0e01ad6-5479-41b5-97a1-1bfd7cddc3d8"} #Autorizacion x sucursal
     
     #categorias faltan 2
     productos_por_categoria = {
@@ -61,8 +61,8 @@ def general_pc(request):
     return render(request, 'gt_store/general_pc.html', context)
 
 def detalle_producto(request, codigo):
-    api_url = f"http://localhost:5000/api/productos?codigo={codigo}"
-    headers = {"Authorization": "0db5b48e-0027-4ace-9ed8-6a04cd3cd292"}
+    api_url = f"https://ferremasapi.onrender.com/api/productos?codigo={codigo}"
+    headers = {"Authorization": "b0e01ad6-5479-41b5-97a1-1bfd7cddc3d8"}
     
     try:
         response = requests.get(api_url, headers=headers)
@@ -98,4 +98,68 @@ def detalle_producto(request, codigo):
 def registro (request):
     return render(request, 'usuarios/registro.html')
 
-#test filtro
+def herramientas_manuales(request):
+    api_url = "https://ferremasapi.onrender.com/api/productos"
+    headers = {"Authorization": "b0e01ad6-5479-41b5-97a1-1bfd7cddc3d8"}
+    
+    try:
+        params = {'categoria': 'herramientas manuales'}
+        response = requests.get(api_url, headers=headers, params=params)
+        response.raise_for_status()
+        productos = response.json()
+        
+        return render(request, 'gt_store/general_almacenamiento.html', {
+            'productos': productos,
+            'categoria': 'Herramientas Manuales',
+            'sucursal': 'Viña del Mar'
+        })
+        
+    except requests.exceptions.RequestException as e:
+        logger.error(f"Error en la conexión: {str(e)}")
+        return render(request, 'gt_store/error.html', {
+            'mensaje': 'Error al cargar herramientas manuales'
+        })
+
+def materiales_basicos(request):
+    api_url = "https://ferremasapi.onrender.com/api/productos"
+    headers = {"Authorization": "b0e01ad6-5479-41b5-97a1-1bfd7cddc3d8"}
+    
+    try:
+        params = {'categoria': 'materiales basicos'}
+        response = requests.get(api_url, headers=headers, params=params)
+        response.raise_for_status()
+        productos = response.json()
+        
+        return render(request, 'gt_store/general_audifono.html', {
+            'productos': productos,
+            'categoria': 'Materiales Básicos',
+            'sucursal': 'Viña del Mar'
+        })
+        
+    except requests.exceptions.RequestException as e:
+        logger.error(f"Error en la conexión: {str(e)}")
+        return render(request, 'gt_store/error.html', {
+            'mensaje': 'Error al cargar materiales básicos'
+        })
+
+def equipos_seguridad(request):
+    api_url = "https://ferremasapi.onrender.com/api/productos"
+    headers = {"Authorization": "b0e01ad6-5479-41b5-97a1-1bfd7cddc3d8"}
+    
+    try:
+        params = {'categoria': 'equipos de seguridad'}
+        response = requests.get(api_url, headers=headers, params=params)
+        response.raise_for_status()
+        productos = response.json()
+        
+        return render(request, 'gt_store/general_fuente_poder.html', {
+            'productos': productos,
+            'categoria': 'Equipos de Seguridad',
+            'sucursal': 'Viña del Mar'
+        })
+        
+    except requests.exceptions.RequestException as e:
+        logger.error(f"Error en la conexión: {str(e)}")
+        return render(request, 'gt_store/error.html', {
+            'mensaje': 'Error al cargar equipos de seguridad'
+        })

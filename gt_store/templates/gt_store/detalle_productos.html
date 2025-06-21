@@ -108,10 +108,8 @@
                     </div>
 
                     <div class="d-grid gap-3 mt-4">
-                        <a href="{% url 'Add' producto.codigo %}" >
-                            <button class="btn btn-lg py-3 fw-bold btn1" style="background-color: white; border: 1px solid #131a55; color: black;">
-                                <i class="fas fa-cart-plus me-2 "></i>Agregar al carrito
-                            </button>
+                        <a href="{% url 'Add' producto.codigo %}" class="btn btn-lg py-3 fw-bold btn1" style="background-color: white; border: 1px solid #131a55; color: black; display: inline-block; text-align: center;">
+                            <i class="fas fa-cart-plus me-2"></i>Agregar al carrito
                         </a>
                         <button class="btn btn-lg py-3 fw-bold btn2" style="background-color: #FF8C00; border: 1px solid #FF8C00; color: white;">
                             <i class="fas fa-bolt me-2"></i>Comprar ahora

@@ -4,7 +4,7 @@ from . import views
 
 
 urlpatterns = [
-    path('agregar/<str:codigo>/', views.agregar_producto, name="Add"),
+    path('carrito/agregar/<str:codigo>/', views.agregar_producto, name='Add'),
     path('eliminar/<str:codigo>/', views.eliminar_producto, name="Del"),
     path('restar/<str:codigo>/', views.restar_producto, name="Sub"),
     path('limpiar/', views.limpiar_carrito, name="CLS"),
@@ -13,4 +13,6 @@ urlpatterns = [
     path('checkout/', views.checkout_con_conversion, name='checkout_con_conversion'),
     path('webpay/iniciar/', views.iniciar_pago_webpay, name='iniciar_pago_webpay'),
     path('webpay/respuesta/', views.webpay_respuesta, name='webpay_respuesta'),
+    path('exitoso/', views.pago_exitoso, name='pago_exitoso'),
+    path('rechazado/', views.pago_rechazado, name='pago_rechazado'),
 ]
