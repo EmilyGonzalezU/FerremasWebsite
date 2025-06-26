@@ -44,7 +44,7 @@ def login_view(request):
                     request.session['user_telefono'] = user.telefono
                     request.session['user_email'] = user.email
                     request.session['user_rut'] = user.rut
-                    return redirect('home')
+                    return redirect('inicio')
                 else:
                     context['password_error'] = "Contraseña incorrecta."
             except PerfilUsuario.DoesNotExist:
@@ -70,4 +70,5 @@ def cerrar_sesion(request):
 #Tipo usuario
 def tipo_usuario(request):
     return render(request, 'usuarios/tipo_usuario.html')
+
 

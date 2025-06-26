@@ -1,87 +1,99 @@
-<!-- templates/app_usuarios/registro.html -->
 {% extends 'gt_store/base_general.html' %}
 {% load static %}
 {% block contenido %}
-<div class="container-fluid pt-5">
+<div class="container-fluid pt-5" style="background-color: #f8f9fa; min-height: 100vh;">
     <div class="row justify-content-center align-items-center">
-        <div class="col-md-4">
-            <div class="p-5 rounded-5 text-secondary shadow">
-                <div class="text-start fs-3 fw-bold mb-4">Registro de usuarios</div>
+        <div class="col-md-7 col-lg-6">
+            <div class="p-5 rounded-4 shadow-lg" style="background-color: white; border-top: 5px solid #FF8C00;">
+                <div class="text-center mb-4">
+                    <h3 class="fw-bold" style="color: #131a55;">Registro de Usuario</h3>
+                    <p class="text-muted">Completa el formulario para crear tu cuenta</p>
+                </div>
+                
                 <form method="post">
                     {% csrf_token %}
-                    <div class="form-group">
-                        <label for="nombre" class="fs-5 pb-1 fw-semibold">Nombre</label>
-                        <div class="input-group mt-1">
-                            <div class="input-group-text bg-info">
-                                <i class="bi bi-person text-white"></i>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="nombre" class="form-label fw-semibold" style="color: #131a55;">Nombre</label>
+                            <div class="input-group">
+                                <span class="input-group-text" style="background-color: #131a55; color: white;">
+                                    <i class="bi bi-person-fill"></i>
+                                </span>
+                                {{ form.nombre }}
                             </div>
-                            {{ form.nombre }}
+                            <div class="invalid-feedback" id="msgErrorNom"></div>
                         </div>
-                        <div class="text-danger fw-bold" id="msgErrorNom" style="font-size: 13px;"></div>
-                    </div>
-                
-                    <div class="form-group">
-                        <label for="apellido" class="fs-5 pb-1 fw-semibold">Apellido</label>
-                        <div class="input-group mt-1">
-                            <div class="input-group-text bg-info">
-                                <i class="bi bi-person text-white"></i>
+                        
+                        <div class="col-md-6 mb-3">
+                            <label for="apellido" class="form-label fw-semibold" style="color: #131a55;">Apellido</label>
+                            <div class="input-group">
+                                <span class="input-group-text" style="background-color: #131a55; color: white;">
+                                    <i class="bi bi-person-fill"></i>
+                                </span>
+                                {{ form.apellido }}
                             </div>
-                            {{ form.apellido }}
+                            <div class="invalid-feedback" id="msgErrorAp"></div>
                         </div>
-                        <div class="text-danger fw-bold" id="msgErrorAp" style="font-size: 13px;"></div>
-                    </div>
-                
-                    <div class="form-group">
-                        <label for="email" class="fs-5 pb-1 fw-semibold">Email</label>
-                        <div class="input-group mt-1">
-                            <div class="input-group-text bg-info">
-                                <i class="bi bi-envelope text-white"></i>
-                            </div>
-                            {{ form.email }}
-                        </div>
-                        <div class="text-danger fw-bold" id="msgErrorMail" style="font-size: 13px;"></div>
-                    </div>
-                
-                    <div class="form-group">
-                        <label for="telefono" class="fs-5 pb-1 fw-semibold">Teléfono</label>
-                        <div class="input-group mt-1">
-                            <div class="input-group-text bg-info">
-                                <i class="bi bi-telephone text-white"></i>
-                            </div>
-                            {{ form.telefono }}
-                        </div>
-                        <div class="text-danger fw-bold" id="msgErrorTel" style="font-size: 13px;"></div>
-                    </div>
-                
-                    <div class="form-group">
-                        <label for="rut" class="fs-5 pb-1 fw-semibold">RUT</label>
-                        <div class="input-group mt-1">
-                            <div class="input-group-text bg-info">
-                                <i class="bi bi-person-vcard text-white"></i>
-                            </div>
-                            {{ form.rut }}
-                        </div>
-                        <div class="text-danger fw-bold" id="msgErrorRUT" style="font-size: 13px;"></div>
-                    </div>
-                
-                    <div class="form-group">
-                        <label for="pass" class="fs-5 pb-1 fw-semibold">Contraseña</label>
-                        <div class="input-group mt-1">
-                            <div class="input-group-text bg-info">
-                                <i class="bi bi-key-fill text-white"></i>
-                            </div>
-                            {{ form.contrasena }}
-                        </div>
-                        <div class="text-danger fw-bold" id="msgErrorPass" style="font-size: 13px;"></div>
                     </div>
                     
-                
-                    <button class="btn btn-info text-white w-100 mt-5 fw-semibold shadow-sm" type="submit" id="btnEnviar">Registrarse</button>                
+                    <div class="mb-3">
+                        <label for="email" class="form-label fw-semibold" style="color: #131a55;">Correo Electrónico</label>
+                        <div class="input-group">
+                            <span class="input-group-text" style="background-color: #131a55; color: white;">
+                                <i class="bi bi-envelope-fill"></i>
+                            </span>
+                            {{ form.email }}
+                        </div>
+                        <div class="invalid-feedback" id="msgErrorMail"></div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="telefono" class="form-label fw-semibold" style="color: #131a55;">Teléfono</label>
+                            <div class="input-group">
+                                <span class="input-group-text" style="background-color: #131a55; color: white;">
+                                    <i class="bi bi-telephone-fill"></i>
+                                </span>
+                                {{ form.telefono }}
+                            </div>
+                            <div class="invalid-feedback" id="msgErrorTel"></div>
+                        </div>
+                        
+                        <div class="col-md-6 mb-3">
+                            <label for="rut" class="form-label fw-semibold" style="color: #131a55;">RUT</label>
+                            <div class="input-group">
+                                <span class="input-group-text" style="background-color: #131a55; color: white;">
+                                    <i class="bi bi-person-vcard-fill"></i>
+                                </span>
+                                {{ form.rut }}
+                            </div>
+                            <div class="invalid-feedback" id="msgErrorRUT"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label for="pass" class="form-label fw-semibold" style="color: #131a55;">Contraseña</label>
+                        <div class="input-group">
+                            <span class="input-group-text" style="background-color: #131a55; color: white;">
+                                <i class="bi bi-key-fill"></i>
+                            </span>
+                            {{ form.contrasena }}
+                        </div>
+                        <div class="invalid-feedback" id="msgErrorPass"></div>
+                    </div>
+                    
+                    <button class="btn w-100 py-2 fw-bold shadow-sm mb-3" 
+                            type="submit" 
+                            style="background-color: #FF8C00; color: white; border: none;">
+                        Registrarse
+                    </button>
+                    
+                    <div class="text-center">
+                        <p class="small mb-0" style="color: #6c757d;">¿Ya tienes una cuenta? 
+                            <a href="{% url 'inicio' %}" class="text-decoration-none fw-bold" style="color: #131a55;">Inicia sesión aquí</a>
+                        </p>
+                    </div>
                 </form>
-                
-                <div class="text-center mt-4">
-                    ¿Ya tienes cuenta? <a href="{% url 'inicio' %}" class="text-info fw-bold text-decoration-none">Iniciar sesión</a>
-                </div>
             </div>
         </div>
     </div>

@@ -57,7 +57,7 @@
                                 <a href="{% url 'cerrar_sesion' %}" class="user-account">Cerrar sesión</a>
                             </div>
                         {% else %}
-                            <a href="{% url 'inicio' %}" class="nav-icon me-3" title="Iniciar sesión">
+                            <a href="{% url 'inicio_sesion' %}" class="nav-icon me-3" title="Iniciar sesión">
                                 <i class="bi bi-person text-white fw-9"></i>
                             </a>
                         {% endif %}
@@ -272,10 +272,7 @@
     
     <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    
-    <!-- Owl Carousel JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
-    
+        
     <!-- Google Maps API -->
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDyMudUDq9GoN9KwzuoAndo0C8Svo4UHGE&libraries=places&callback=initMap" defer></script>
 

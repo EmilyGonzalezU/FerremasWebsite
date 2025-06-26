@@ -9,6 +9,7 @@
                         <h2 class="h5 mb-0">Información de Compra</h2>
                     </div>
                     <div class="card-body">
+                        <!-- En tu template (continuacion_compra.html o checkout.html) -->
                         <form method="POST">
                             {% csrf_token %}
                             
@@ -16,31 +17,46 @@
                             <div class="row">
                                 <div class="col-md-6 mb-3">
                                     <label for="{{ form.nombre_usuario.id_for_label }}" class="form-label required-field">Nombre</label>
-                                    {{ form.nombre_usuario }}
+                                    <input type="text" class="form-control" id="{{ form.nombre_usuario.id_for_label }}" 
+                                        name="{{ form.nombre_usuario.name }}" 
+                                        value="{{ form.nombre_usuario.value|default:'' }}"
+                                        {% if is_logged_in %}readonly{% endif %} required>
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label for="{{ form.apellido_usuario.id_for_label }}" class="form-label required-field">Apellido</label>
-                                    {{ form.apellido_usuario }}
+                                    <input type="text" class="form-control" id="{{ form.apellido_usuario.id_for_label }}" 
+                                        name="{{ form.apellido_usuario.name }}" 
+                                        value="{{ form.apellido_usuario.value|default:'' }}"
+                                        {% if is_logged_in %}readonly{% endif %} required>
                                 </div>
                             </div>
                             
                             <div class="row">
                                 <div class="col-md-6 mb-3">
                                     <label for="{{ form.rut_usuario.id_for_label }}" class="form-label required-field">RUT</label>
-                                    {{ form.rut_usuario }}
+                                    <input type="text" class="form-control" id="{{ form.rut_usuario.id_for_label }}" 
+                                        name="{{ form.rut_usuario.name }}" 
+                                        value="{{ form.rut_usuario.value|default:'' }}"
+                                        {% if is_logged_in %}readonly{% endif %} required>
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label for="{{ form.telefono_usuario.id_for_label }}" class="form-label required-field">Teléfono</label>
-                                    {{ form.telefono_usuario }}
+                                    <input type="text" class="form-control" id="{{ form.telefono_usuario.id_for_label }}" 
+                                        name="{{ form.telefono_usuario.name }}" 
+                                        value="{{ form.telefono_usuario.value|default:'' }}"
+                                        {% if is_logged_in %}readonly{% endif %} required>
                                 </div>
                             </div>
                             
                             <div class="mb-3">
                                 <label for="{{ form.email_usuario.id_for_label }}" class="form-label required-field">Email</label>
-                                {{ form.email_usuario }}
+                                <input type="email" class="form-control" id="{{ form.email_usuario.id_for_label }}" 
+                                    name="{{ form.email_usuario.name }}" 
+                                    value="{{ form.email_usuario.value|default:'' }}"
+                                    {% if is_logged_in %}readonly{% endif %} required>
                                 <small class="text-muted">Recibirás el comprobante aquí</small>
                             </div>
-                            
+                                
                             <h3 class="form-section-title">Dirección de Envío</h3>
                             <div class="row">
                                 <div class="col-md-8 mb-3">
@@ -108,26 +124,6 @@
                     <div class="summary-header">
                         <h2 class="h5 mb-0">Resumen de tu Pedido</h2>
                     </div>
-                    <div class="d-grid mt-4">
-                        {% if valor_dolar and valor_euro %}
-                            <div class="mb-3">
-                                <p class="mb-1"><strong>Equivalente en otras monedas:</strong></p>
-                                <ul class="list-unstyled">
-                                    <li><i class="bi bi-currency-dollar me-1"></i> USD: {{ total_usd|floatformat:2 }} (1 USD = {{ valor_dolar|floatformat:2 }} CLP)</li>
-                                    <li><i class="bi bi-currency-euro me-1"></i> EUR: {{ total_eur|floatformat:2 }} (1 EUR = {{ valor_euro|floatformat:2 }} CLP)</li>
-                                </ul>
-                            </div>
-                        {% else %}
-                            <p class="text-danger">No se pudo obtener el valor actualizado del dólar/euro</p>
-                            <!-- Información de depuración -->
-                            <div class="debug-info" style="background: #f8f9fa; padding: 10px; border-radius: 5px;">
-                                <p><strong>Información de depuración:</strong></p>
-                                <p>Valor dólar: {{ valor_dolar|default:"None" }}</p>
-                                <p>Valor euro: {{ valor_euro|default:"None" }}</p>
-                                <p>Total CLP: {{ total_carrito }}</p>
-                            </div>
-                        {% endif %}
-                    </div>
                     <div class="card-body">
                         <div class="product-list">
                             {% if request.session.carrito.items %}
@@ -146,7 +142,7 @@
                                             </div>
                                             <div class="d-flex justify-content-between mt-2">
                                                 <span class="text-muted">Subtotal:</span>
-                                                <span class="product-price fw-bold">${{ total_carrito }}</span>
+                                                <span class="product-price fw-bold">${{ total_carrito|floatformat:0 }}</span>
                                             </div>
                                         </div>
                                     </div>
