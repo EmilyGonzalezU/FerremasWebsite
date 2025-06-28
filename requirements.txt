@@ -5,6 +5,7 @@ tzdata==2025.2
 coverage>=7.4.4
 python-dotenv
 django-filter
+requests
 
 
 
