@@ -11,7 +11,10 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
+import os
+from dotenv import load_dotenv
 
+load_dotenv()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -20,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-y526dep8vzfwe7&_nm_cbv*ymfa2*7u*#l0bbzc6p(ezus0i(1'
+SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", "clave-por-defecto-solo-para-dev")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -136,7 +139,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 TRANSBANK = {
-    "commerce_code": "597055555532",  
-    "api_key": "579B532A7440BB0C9079DED94D31EA1615BACEB56610332264630D42D0A36B1C",   
-    "integration_type": "TEST",     
+    "commerce_code": os.getenv("TRANSBANK_COMMERCE_CODE", "597055555532"),
+    "api_key": os.getenv("TRANSBANK_API_KEY", "clave-api-fake"),
+    "integration_type": os.getenv("TRANSBANK_INTEGRATION_TYPE", "TEST")
 }
