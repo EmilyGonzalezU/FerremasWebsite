@@ -50,5 +50,8 @@ jobs:
       run: |
         coverage run manage.py test
         coverage report
+    - name: Install dotenv manually (temporal workaround)
+      run: pip install python-dotenv
+
 
 
