@@ -2,6 +2,8 @@ from pyexpat.errors import messages
 from venv import logger
 from django.http import HttpResponse
 from django.shortcuts import redirect, render, get_object_or_404
+
+from gato_tech import settings
 from . import models
 from itertools import chain
 import random
@@ -16,8 +18,8 @@ logger = logging.getLogger(__name__)
 
 
 def index(request):
-    api_url = "https://ferremasapi.onrender.com/api/productos"
-    headers = {"Authorization": "b0e01ad6-5479-41b5-97a1-1bfd7cddc3d8"} #Autorizacion x sucursal
+    api_url = f"https://ferremasapi.onrender.com/api/productos"
+    headers = {"Authorization": "b0e01ad6-5479-41b5-97a1-1bfd7cddc3d8"}
     
     #categorias faltan 2
     productos_por_categoria = {
@@ -99,7 +101,7 @@ def registro (request):
     return render(request, 'usuarios/registro.html')
 
 def herramientas_manuales(request):
-    api_url = "https://ferremasapi.onrender.com/api/productos"
+    api_url = f"https://ferremasapi.onrender.com/api/productos"
     headers = {"Authorization": "b0e01ad6-5479-41b5-97a1-1bfd7cddc3d8"}
     
     try:
@@ -121,7 +123,7 @@ def herramientas_manuales(request):
         })
 
 def materiales_basicos(request):
-    api_url = "https://ferremasapi.onrender.com/api/productos"
+    api_url = f"https://ferremasapi.onrender.com/api/productos"
     headers = {"Authorization": "b0e01ad6-5479-41b5-97a1-1bfd7cddc3d8"}
     
     try:
@@ -143,7 +145,7 @@ def materiales_basicos(request):
         })
 
 def equipos_seguridad(request):
-    api_url = "https://ferremasapi.onrender.com/api/productos"
+    api_url = f"https://ferremasapi.onrender.com/api/productos"
     headers = {"Authorization": "b0e01ad6-5479-41b5-97a1-1bfd7cddc3d8"}
     
     try:

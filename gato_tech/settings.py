@@ -140,6 +140,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 TRANSBANK = {
     "commerce_code": os.getenv("TRANSBANK_COMMERCE_CODE", "597055555532"),
-    "api_key": os.getenv("TRANSBANK_API_KEY", "clave-api-fake"),
+    "api_key": os.getenv("TRANSBANK_API_KEY", "579B532A7440BB0C9079DED94D31EA1615BACEB56610332264630D42D0A36B1C"),
     "integration_type": os.getenv("TRANSBANK_INTEGRATION_TYPE", "TEST")
 }

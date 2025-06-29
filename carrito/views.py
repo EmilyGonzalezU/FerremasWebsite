@@ -75,6 +75,7 @@ def tienda(request):
 
 def agregar_producto(request, codigo):
     carrito = Carrito(request)
+    
     api_url = f"https://ferremasapi.onrender.com/api/productos?codigo={codigo}"
     headers = {"Authorization": "b0e01ad6-5479-41b5-97a1-1bfd7cddc3d8"}
     
@@ -233,7 +234,7 @@ def iniciar_pago_webpay(request):
         logger.error(f"Error al iniciar pago WebPay: {str(e)}", exc_info=True)
         messages.error(request, f"Error al iniciar el pago: {str(e)}")
         return redirect('datos_usuario_compra')
-
+    
 def webpay_respuesta(request):
     token = request.GET.get("token_ws")
     if not token:
@@ -247,74 +248,133 @@ def webpay_respuesta(request):
         ))
         
         commit_response = tx.commit(token)
-        
-        if commit_response.response_code == 0:
+
+        response_code = getattr(commit_response, 'response_code', None)
+        if response_code is None and isinstance(commit_response, dict):
+            response_code = commit_response.get('response_code')
+
+        if response_code == 0:
             webpay_data = request.session.get('webpay_data', {})
             carrito = request.session.get('carrito_para_pago', {})
             datos_compra = request.session.get('datos_compra', {}).get('form_data', {})
-            
+
             request.session['transaccion_exitosa'] = {
                 'buy_order': webpay_data.get('buy_order'),
                 'amount': webpay_data.get('amount'),
                 'authorization_code': getattr(commit_response, 'authorization_code', ''),
-                'transaction_date': getattr(commit_response, 'transaction_date', ''),
+                'transaction_date': getattr(commit_response, 'transaction_date', '') or datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
                 'card_number': getattr(getattr(commit_response, 'card_detail', None), 'card_number', '')[-4:],
                 'payment_type': getattr(commit_response, 'payment_type_code', ''),
-                
-                'nombre': datos_compra.get('user_nombre', ''),
-                'email': datos_compra.get('user_email', ''),
-                'rut': datos_compra.get('user_rut', ''),
-                
+                'nombre_cliente': datos_compra.get('nombre_usuario'),
+                'email_cliente': datos_compra.get('email_usuario'),
+                'rut_cliente': datos_compra.get('rut_usuario'),
                 'productos': [
                     {
                         'nombre': item['nombre'],
                         'precio': item['precio'],
                         'cantidad': item['cantidad'],
                         'subtotal': item['precio'] * item['cantidad']
-                    } 
-                    for item in carrito.values()
+                    } for item in carrito.values()
                 ],
                 'total': webpay_data.get('amount')
             }
-            
+
             for key in ['carrito', 'carrito_para_pago', 'datos_compra', 'webpay_data']:
                 request.session.pop(key, None)
-            
+
             return redirect('pago_exitoso')
         else:
-            error_msg = f"Transbank rechazó el pago. Código: {commit_response.response_code}"
-            return render(request, "carrito/pago_rechazado.html", {"error": error_msg})
+            webpay_data = request.session.get('webpay_data', {})
+            carrito = request.session.get('carrito_para_pago', {})
+            datos_compra = request.session.get('datos_compra', {}).get('form_data', {})
+
+            request.session['error_pago'] = {
+                'codigo': response_code,
+                'mensaje': f"Transbank rechazó el pago. Código: {response_code}",
+                'buy_order': webpay_data.get('buy_order'),
+                'card_number': getattr(getattr(commit_response, 'card_detail', None), 'card_number', '')[-4:],
+                'payment_type': getattr(commit_response, 'payment_type_code', ''),
+                'nombre_cliente': datos_compra.get('nombre_usuario'),
+                'email_cliente': datos_compra.get('email_usuario'),
+                'rut_cliente': datos_compra.get('rut_usuario'),
+                'productos': [
+                    {
+                        'nombre': item['nombre'],
+                        'precio': item['precio'],
+                        'cantidad': item['cantidad'],
+                        'subtotal': item['precio'] * item['cantidad']
+                    } for item in carrito.values()
+                ],
+                'total': sum(item['precio'] * item['cantidad'] for item in carrito.values())
+            }
             
+            return redirect('pago_rechazado')
+
     except Exception as e:
-        logger.error(f"Error en webpay_respuesta: {str(e)}")
-        return render(request, "carrito/pago_rechazado.html", {"error": "Error al procesar el pago"})
+        logger.error(f"Error en webpay_respuesta: {str(e)}", exc_info=True)
+        request.session['error_pago'] = {
+            'codigo': 'ERROR',
+            'mensaje': f"Error al procesar el pago: {str(e)}",
+            'productos': [
+                {
+                    'nombre': item['nombre'],
+                    'precio': item['precio'],
+                    'cantidad': item['cantidad'],
+                    'subtotal': item['precio'] * item['cantidad']
+                } for item in request.session.get('carrito_para_pago', {}).values()
+            ]
+        }
+        return redirect('pago_rechazado')
+
     
 def pago_exitoso(request):
     transaccion_data = request.session.get('transaccion_exitosa', {})
     if not transaccion_data:
-        return redirect('tienda')
-        
+        return redirect('inicio')
+
     context = {
-        'buy_order': transaccion_data.get('buy_order'),
-        'amount': transaccion_data.get('amount'),
-        'authorization_code': transaccion_data.get('authorization_code'),
-        'transaction_date': transaccion_data.get('transaction_date'),
-        'tarjeta': f"**** **** **** {transaccion_data.get('card_number', '')[-4:]}",
-        'cuotas': transaccion_data.get('installments_number', 1)
+        'nombre_cliente': transaccion_data.get('nombre_cliente', 'Cliente'),
+        'email_cliente': transaccion_data.get('email_cliente', '---'),
+        'rut_cliente': transaccion_data.get('rut_cliente', '---'),
+        'numero_orden': transaccion_data.get('buy_order', '---'),
+        'fecha': transaccion_data.get('transaction_date', '---'),
+        'estado': 'Aprobado',
+        'tipo_pago': transaccion_data.get('payment_type', '---'),
+        'tarjeta': f"**** **** **** {transaccion_data.get('card_number', '')}",
+        'autorizacion': transaccion_data.get('authorization_code', '---'),
+        'productos': transaccion_data.get('productos', []),
+        'total': transaccion_data.get('total', 0)
     }
-    
+
     request.session.pop('transaccion_exitosa', None)
-    
-    return render(request, 'carrito/pago_exitoso.html', context)
+
+    return render(request, 'carrito/pago_exito.html', context)
 
 def pago_rechazado(request):
     error_data = request.session.get('error_pago', {})
-    context = {
-        'codigo_error': error_data.get('codigo', 'DESC'),
-        'mensaje_error': error_data.get('mensaje', 'El pago fue rechazado')
-    }
-    
-    request.session.pop('error_pago', None)
-    
-    return render(request, 'carrito/pago_rechazado.html', context)
+    carrito = request.session.get('carrito_para_pago', {})
+    datos_compra = request.session.get('datos_compra', {}).get('form_data', {})
 
+    context = {
+        'numero_orden': error_data.get('buy_order', '---'),
+        'fecha': datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+        'estado': 'Rechazado',
+        'tipo_pago': error_data.get('payment_type', '---'),
+        'tarjeta': f"**** **** **** {error_data.get('card_number', '')}",
+        'codigo_error': error_data.get('codigo', 'No disponible'),
+        'mensaje_error': error_data.get('mensaje', 'El pago fue rechazado o cancelado.'),
+        'nombre_cliente': error_data.get('nombre_cliente', datos_compra.get('nombre_usuario', 'Cliente')),
+        'email_cliente': error_data.get('email_cliente', datos_compra.get('email_usuario', '---')),
+        'rut_cliente': error_data.get('rut_cliente', datos_compra.get('rut_usuario', '---')),
+        'productos': error_data.get('productos', [
+            {
+                'nombre': item['nombre'],
+                'precio': item['precio'],
+                'cantidad': item['cantidad'],
+                'subtotal': item['precio'] * item['cantidad']
+            } for item in carrito.values()
+        ]),
+        'total': error_data.get('total', sum(item['precio'] * item['cantidad'] for item in carrito.values()))
+    }
+
+    return render(request, "carrito/pago_rechazado.html", context)

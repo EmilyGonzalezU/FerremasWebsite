@@ -1,56 +1,89 @@
 {% extends 'gt_store/base_general.html' %}
+
 {% block contenido %}
 <div class="container my-5">
     <div class="row justify-content-center">
-        <div class="col-lg-8">
-            <div class="card shadow-lg border-0">
-                <div class="card-header bg-success text-white">
-                    <h2 class="mb-0 text-center">
-                        <i class="fas fa-check-circle me-2"></i> Pago Exitoso
-                    </h2>
+        <div class="col-lg-10">
+            <!-- Encabezado -->
+            <div class="text-center mb-5">
+                <div class="mb-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" fill="#28a745" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
+                        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+                    </svg>
                 </div>
-                <div class="card-body text-center py-4">
-                    <div class="mb-4">
-                        <i class="fas fa-check-circle fa-5x text-success mb-3"></i>
-                        <h3 class="text-success">¡Gracias por tu compra!</h3>
-                        <p class="lead">Tu pago ha sido procesado correctamente.</p>
-                    </div>
-                    
-                    <div class="row justify-content-center mb-4">
-                        <div class="col-md-8">
-                            <div class="card border-0 bg-light">
-                                <div class="card-body">
-                                    <h5 class="card-title">Detalles de la transacción</h5>
-                                    <hr>
-                                    
-                                    <div class="row text-start">
-                                        <div class="col-6">
-                                            <p class="mb-2"><strong>Orden de compra:</strong></p>
-                                            <p class="mb-2"><strong>Monto:</strong></p>
-                                            <p class="mb-2"><strong>Código autorización:</strong></p>
-                                            <p class="mb-2"><strong>Fecha:</strong></p>
-                                            <p class="mb-2"><strong>Tarjeta:</strong></p>
-                                            <p class="mb-0"><strong>Cuotas:</strong></p>
-                                        </div>
-                                        <div class="col-6">
-                                            <p class="mb-2">{{ buy_order }}</p>
-                                            <p class="mb-2">${{ amount|intcomma }}</p>
-                                            <p class="mb-2">{{ authorization_code }}</p>
-                                            <p class="mb-2">{{ transaction_date }}</p>
-                                            <p class="mb-2">{{ tarjeta }}</p>
-                                            <p class="mb-0">{{ cuotas }}</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                <h1 class="display-5 fw-bold text-success">¡Pago Aprobado!</h1>
+                <p class="lead">Gracias por tu compra, {{ nombre_cliente }}</p>
+            </div>
+
+            <!-- Resumen de la compra -->
+            <div class="card shadow-sm mb-5">
+                <div class="card-header bg-success text-white">
+                    <h5 class="mb-0">Resumen de tu compra</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row mb-4">
+                        <div class="col-md-6">
+                            <h6>Información de la transacción</h6>
+                            <ul class="list-unstyled">
+                                <li><strong>Número de orden:</strong> {{ numero_orden }}</li>
+                                <li><strong>Fecha:</strong> {{ fecha }}</li>
+                                <li><strong>Estado:</strong> <span class="badge bg-success">{{ estado }}</span></li>
+                                <li><strong>Método de pago:</strong> 
+                                    {% if tipo_pago == 'VD' %}Débito{% else %}Crédito{% endif %}
+                                    ({{ tarjeta }})
+                                </li>
+                                <li><strong>Código de autorización:</strong> {{ autorizacion }}</li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <h6>Información del cliente</h6>
+                            <ul class="list-unstyled">
+                                <li><strong>Nombre:</strong> {{ nombre_cliente }}</li>
+                                <li><strong>RUT:</strong> {{ rut_cliente }}</li>
+                                <li><strong>Email:</strong> {{ email_cliente }}</li>
+                            </ul>
                         </div>
                     </div>
-                    
-                    <p class="text-muted">Hemos enviado un correo con los detalles de tu compra.</p>
-                    <a href="{% url 'tienda' %}" class="btn btn-primary mt-3">
-                        <i class="fas fa-store me-2"></i> Volver a la tienda
-                    </a>
+
+                    <hr>
+
+                    <h6 class="mb-3">Productos comprados</h6>
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Producto</th>
+                                    <th class="text-end">Precio unitario</th>
+                                    <th class="text-end">Cantidad</th>
+                                    <th class="text-end">Subtotal</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for producto in productos %}
+                                <tr>
+                                    <td>{{ producto.nombre }}</td>
+                                    <td class="text-end">${{ producto.precio|floatformat:0 }}</td>
+                                    <td class="text-end">{{ producto.cantidad }}</td>
+                                    <td class="text-end">${{ producto.subtotal|floatformat:0 }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th colspan="3" class="text-end">Total:</th>
+                                    <th class="text-end">${{ total|floatformat:0 }}</th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
                 </div>
+            </div>
+
+            <!-- Botones de acción -->
+            <div class="text-center">
+                <a href="{% url 'inicio' %}" class="btn btn-success btn-lg">
+                    <i class="bi bi-house-door me-2"></i> Volver a la tienda
+                </a>
             </div>
         </div>
     </div>

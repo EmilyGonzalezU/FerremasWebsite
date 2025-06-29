@@ -7,18 +7,21 @@
             <!-- Encabezado -->
             <div class="text-center mb-5">
                 <div class="mb-4">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" fill="#28a745" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
-                        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" fill="#dc3545" class="bi bi-x-circle-fill" viewBox="0 0 16 16">
+                        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z"/>
                     </svg>
                 </div>
-                <h1 class="display-5 fw-bold text-success">¡Pago Aprobado!</h1>
-                <p class="lead">Gracias por tu compra, {{ nombre_cliente }}</p>
+                <h1 class="display-5 fw-bold text-danger">¡Pago Rechazado!</h1>
+                <p class="lead">Lo sentimos {{ nombre_cliente }}, hubo un problema con tu pago</p>
+                {% if mensaje_error %}
+                <div class="alert alert-danger">{{ mensaje_error }}</div>
+                {% endif %}
             </div>
 
-            <!-- Resumen de la compra -->
+            <!-- Detalles del rechazo -->
             <div class="card shadow-sm mb-5">
-                <div class="card-header bg-success text-white">
-                    <h5 class="mb-0">Resumen de tu compra</h5>
+                <div class="card-header bg-danger text-white">
+                    <h5 class="mb-0">Detalles del rechazo</h5>
                 </div>
                 <div class="card-body">
                     <div class="row mb-4">
@@ -27,18 +30,18 @@
                             <ul class="list-unstyled">
                                 <li><strong>Número de orden:</strong> {{ numero_orden }}</li>
                                 <li><strong>Fecha:</strong> {{ fecha }}</li>
-                                <li><strong>Estado:</strong> <span class="badge bg-success">{{ estado }}</span></li>
+                                <li><strong>Estado:</strong> <span class="badge bg-danger">{{ estado }}</span></li>
                                 <li><strong>Método de pago:</strong> 
                                     {% if tipo_pago == 'VD' %}Débito{% else %}Crédito{% endif %}
                                     ({{ tarjeta }})
                                 </li>
-                                <li><strong>Código de autorización:</strong> {{ autorizacion }}</li>
+                                <li><strong>Código de error:</strong> {{ codigo_error }}</li>
                             </ul>
                         </div>
                         <div class="col-md-6">
                             <h6>Información del cliente</h6>
                             <ul class="list-unstyled">
-                                <li><strong>Nombre:</strong> {{ user_nombre }}</li>
+                                <li><strong>Nombre:</strong> {{ nombre_cliente }}</li>
                                 <li><strong>RUT:</strong> {{ rut_cliente }}</li>
                                 <li><strong>Email:</strong> {{ email_cliente }}</li>
                             </ul>
@@ -47,7 +50,18 @@
 
                     <hr>
 
-                    <h6 class="mb-3">Productos comprados</h6>
+                    <div class="alert alert-warning">
+                        <h5 class="alert-heading">Posibles motivos del rechazo:</h5>
+                        <ul>
+                            <li>Fondos insuficientes en la cuenta</li>
+                            <li>Límite de crédito excedido</li>
+                            <li>Datos de la tarjeta incorrectos</li>
+                            <li>Problemas temporales con el banco emisor</li>
+                            <li>La transacción fue cancelada</li>
+                        </ul>
+                    </div>
+
+                    <h6 class="mb-3">Productos en tu orden</h6>
                     <div class="table-responsive">
                         <table class="table">
                             <thead>
@@ -81,7 +95,10 @@
 
             <!-- Botones de acción -->
             <div class="text-center">
-                <a href="{% url 'inicio' %}" class="btn btn-success btn-lg">
+                <a href="{% url 'carrito' %}" class="btn btn-danger btn-lg me-3">
+                    <i class="bi bi-credit-card me-2"></i> Reintentar pago
+                </a>
+                <a href="{% url 'inicio' %}" class="btn btn-outline-secondary btn-lg">
                     <i class="bi bi-house-door me-2"></i> Volver a la tienda
                 </a>
             </div>
