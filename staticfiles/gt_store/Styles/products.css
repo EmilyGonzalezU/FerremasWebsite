@@ -1,0 +1,125 @@
+ /* Estilos generales para las cards */
+    .product-card {
+        transition: all 0.3s ease;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+    
+    .product-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+    }
+    
+    /* Contenedor de imagen con altura fija */
+    .product-image-container {
+        height: 180px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: white;
+        padding: 10px;
+    }
+    
+    .product-image-container img {
+        max-height: 100%;
+        max-width: 100%;
+        object-fit: contain;
+        transition: transform 0.3s ease;
+    }
+    
+    .product-card:hover .product-image-container img {
+        transform: scale(1.05);
+    }
+    
+    /* Estilo para la descripción */
+    .product-description {
+        height: 60px;
+        overflow: hidden;
+    }
+    
+    /* Estilo para el precio */
+    .product-price {
+        color: #FF8C00;
+        font-weight: 600;
+    }
+    
+    /* Botón de agregar al carrito */
+    .add-to-cart-btn {
+        background-color: #FF8C00;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        padding: 8px 0;
+        transition: all 0.3s ease;
+        cursor: pointer;
+        text-align: center;
+    }
+    
+    .add-to-cart-btn:hover {
+        background-color: #e67e00;
+        color: white;
+    }
+    
+    /* Badges */
+    .badge.bg-secondary {
+        background-color: #6c757d !important;
+    }
+    
+    /* Asegurar que todas las cards tengan la misma altura */
+    .card-body {
+        flex: 1 1 auto;
+    }
+    
+    /* Estilos para el enlace de la card */
+    a.text-decoration-none:hover {
+        text-decoration: none !important;
+    }
+    
+    /* Responsividad */
+    @media (max-width: 767.98px) {
+        .product-image-container {
+            height: 150px;
+        }
+        
+        .product-description {
+            height: 50px;
+        }
+    }
+
+/*Carrito */
+   .product-image-container {
+        height: 180px;
+        background-color: #f8f9fa;
+        border-radius: 8px;
+    }
+    
+    .product-item {
+        transition: transform 0.2s ease;
+    }
+    
+    .product-item:hover {
+        transform: translateY(-2px);
+    }
+    
+    .btn-outline-secondary {
+        border-color: #dee2e6;
+    }
+    
+    .btn-outline-secondary:hover {
+        background-color: #f8f9fa;
+    }
+    
+    .resumenFijo {
+        top: 20px;
+    }
+    
+    @media (max-width: 767.98px) {
+        .product-image-container {
+            height: 140px;
+        }
+        
+        .resumenFijo {
+            position: static;
+            margin-top: 2rem;
+        }
+    }
