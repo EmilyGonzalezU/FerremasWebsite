@@ -4,7 +4,7 @@ certifi==2025.4.26
 charset-normalizer==3.4.2
 click==8.2.0
 colorama==0.4.6
-coverage==7.4.4
+coverage==7.9.1
 Django==5.2
 django-filter==25.1
 Flask==3.1.1
@@ -12,12 +12,18 @@ Flask-Cors==3.0.10
 Flask-SQLAlchemy==3.1.1
 greenlet==3.2.2
 idna==3.10
+iniconfig==2.1.0
 itsdangerous==2.2.0
 Jinja2==3.1.6
+gunicorn
 MarkupSafe==3.0.2
 marshmallow==3.26.1
 packaging==25.0
 pillow==11.2.1
+pluggy==1.6.0
+Pygments==2.19.2
+pytest==8.4.1
+pytest-cov==6.2.1
 python-dotenv==1.1.1
 requests==2.32.3
 six==1.17.0
