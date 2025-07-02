@@ -77,7 +77,7 @@ def agregar_producto(request, codigo):
     carrito = Carrito(request)
     
     api_url = f"https://ferremasapi.onrender.com/api/productos?codigo={codigo}"
-    headers = {"Authorization": "b0e01ad6-5479-41b5-97a1-1bfd7cddc3d8"}
+    headers = {"Authorization": os.environ.get("FERREMAS_API_KEY")}
     
     try:
         response = requests.get(api_url, headers=headers)

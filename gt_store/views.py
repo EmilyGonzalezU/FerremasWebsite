@@ -19,7 +19,7 @@ logger = logging.getLogger(__name__)
 
 def index(request):
     api_url = f"https://ferremasapi.onrender.com/api/productos"
-    headers = {"Authorization": "b0e01ad6-5479-41b5-97a1-1bfd7cddc3d8"}
+    headers = {"Authorization": os.environ.get("FERREMAS_API_KEY")}
     
     #categorias faltan 2
     productos_por_categoria = {
@@ -64,7 +64,7 @@ def general_pc(request):
 
 def detalle_producto(request, codigo):
     api_url = f"https://ferremasapi.onrender.com/api/productos?codigo={codigo}"
-    headers = {"Authorization": "b0e01ad6-5479-41b5-97a1-1bfd7cddc3d8"}
+    headers = {"Authorization": os.environ.get("FERREMAS_API_KEY")}
     
     try:
         response = requests.get(api_url, headers=headers)
@@ -102,7 +102,7 @@ def registro (request):
 
 def herramientas_manuales(request):
     api_url = f"https://ferremasapi.onrender.com/api/productos"
-    headers = {"Authorization": "b0e01ad6-5479-41b5-97a1-1bfd7cddc3d8"}
+    headers = {"Authorization": os.environ.get("FERREMAS_API_KEY")}
     
     try:
         params = {'categoria': 'herramientas manuales'}
@@ -124,7 +124,7 @@ def herramientas_manuales(request):
 
 def materiales_basicos(request):
     api_url = f"https://ferremasapi.onrender.com/api/productos"
-    headers = {"Authorization": "b0e01ad6-5479-41b5-97a1-1bfd7cddc3d8"}
+    headers = {"Authorization": os.environ.get("FERREMAS_API_KEY")}
     
     try:
         params = {'categoria': 'materiales basicos'}
@@ -146,7 +146,7 @@ def materiales_basicos(request):
 
 def equipos_seguridad(request):
     api_url = f"https://ferremasapi.onrender.com/api/productos"
-    headers = {"Authorization": "b0e01ad6-5479-41b5-97a1-1bfd7cddc3d8"}
+    headers = {"Authorization": os.environ.get("FERREMAS_API_KEY")}
     
     try:
         params = {'categoria': 'equipos de seguridad'}
