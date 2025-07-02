@@ -13,6 +13,8 @@ from .models import Pc, Notebook, Procesador, Placa_madre, Tarjeta_video, almace
 from .filters import ProcesadorFilter, PlacaMadreFilter, TarjetaVideoFilter, AlmacenamientoFilter, FuentePoderFilter, RamFilter, GabineteFilter
 import logging
 import requests
+import os
+
 
 logger = logging.getLogger(__name__)
 
