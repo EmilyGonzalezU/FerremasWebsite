@@ -7,7 +7,7 @@ class RegistroUsuarioForm(forms.ModelForm):
     contrasena = forms.CharField(
         widget=forms.PasswordInput(attrs={
             'class': 'form-control py-2',
-            'id': 'pass',
+            'id': 'id_pass',
             'required': 'required',
             'placeholder': 'Ingresa tu contraseña'
         }),
@@ -24,31 +24,31 @@ class RegistroUsuarioForm(forms.ModelForm):
         widgets = {
             'nombre': forms.TextInput(attrs={
                 'class': 'form-control py-2',
-                'id': 'nombre',
+                'id': 'id_nombre',
                 'required': 'required',
                 'placeholder': 'Ingresa tu nombre'
             }),
             'apellido': forms.TextInput(attrs={
                 'class': 'form-control py-2',
-                'id': 'apellido',
+                'id': 'id_apellido',
                 'required': 'required',
                 'placeholder': 'Ingresa tu apellido'
             }),
             'email': forms.EmailInput(attrs={
                 'class': 'form-control py-2',
-                'id': 'email',
+                'id': 'id_email',
                 'required': 'required',
                 'placeholder': 'tucorreo@ejemplo.com'
             }),
             'telefono': forms.TextInput(attrs={
                 'class': 'form-control py-2',
-                'id': 'telefono',
+                'id': 'id_telefono',
                 'required': 'required',
                 'placeholder': 'Ingresa tu teléfono'
             }),
             'rut': forms.TextInput(attrs={
                 'class': 'form-control py-2',
-                'id': 'rut',
+                'id': 'id_rut',
                 'required': 'required',
                 'placeholder': 'Ingresa tu RUT (sin puntos con guión)'
             }),
@@ -89,3 +89,38 @@ class RegistroUsuarioForm(forms.ModelForm):
         if commit:
             user.save()
         return user
+from django import forms
+
+class LoginForm(forms.Form):
+    email = forms.EmailField(
+        widget=forms.EmailInput(attrs={
+            'class': 'form-control py-2',
+            'id': 'id_email',
+            'required': True,
+            'placeholder': 'tucorreo@ejemplo.com'
+        }),
+        error_messages={
+            'required': 'El correo electrónico es obligatorio',
+            'invalid': 'Ingrese un correo electrónico válido'
+        }
+    )
+    
+    password = forms.CharField(
+        widget=forms.PasswordInput(attrs={
+            'class': 'form-control py-2',
+            'id': 'id_password',
+            'required': True,
+            'placeholder': 'Ingresa tu contraseña'
+        }),
+        error_messages={
+            'required': 'La contraseña es obligatoria'
+        }
+    )
+    
+    remember_me = forms.BooleanField(
+        required=False,
+        widget=forms.CheckboxInput(attrs={
+            'class': 'form-check-input',
+            'id': 'rememberMe'
+        })
+    )

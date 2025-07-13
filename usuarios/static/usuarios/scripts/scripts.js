@@ -1,35 +1,35 @@
 document.addEventListener('DOMContentLoaded', function() {
     // Configuración de validación
     const config = {
-        nombre: {
+        id_nombre: {
             regex: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/,
-            errorEmpty: "Ingrese su nombre",
+            errorEmpty: "Por favor ingrese su nombre",
             errorInvalid: "Solo se permiten letras y espacios"
         },
-        apellido: {
+        id_apellido: {
             regex: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/,
-            errorEmpty: "Ingrese su apellido",
+            errorEmpty: "Por favor ingrese su apellido",
             errorInvalid: "Solo se permiten letras y espacios"
         },
-        email: {
+        id_email: {
             regex: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-            errorEmpty: "Ingrese su e-mail",
-            errorInvalid: "Ingrese un e-mail válido"
+            errorEmpty: "Por favor ingrese su email",
+            errorInvalid: "Ingrese un email válido"
         },
-        telefono: {
+        id_telefono: {
             regex: /^\d{8,12}$/,
-            errorEmpty: "Ingrese su teléfono",
-            errorInvalid: "Debe tener 8-12 dígitos"
+            errorEmpty: "Por favor ingrese su teléfono",
+            errorInvalid: "Debe tener entre 8 y 12 dígitos"
         },
-        rut: {
+        id_rut: {
             validator: Fn.validaRut,
-            errorEmpty: "Ingrese su RUT",
+            errorEmpty: "Por favor ingrese su RUT",
             errorInvalid: "Ingrese un RUT válido (ej: 12345678-9)"
         },
-        pass: {
+        id_pass: {
             minLength: 8,
-            errorEmpty: "Ingrese su contraseña",
-            errorInvalid: "Mínimo 8 caracteres"
+            errorEmpty: "Por favor ingrese una contraseña",
+            errorInvalid: "La contraseña debe tener al menos 8 caracteres"
         }
     };
 
@@ -57,7 +57,10 @@ document.addEventListener('DOMContentLoaded', function() {
     // Función de validación genérica
     function validarCampo(campo, config) {
         const value = campo.value.trim();
-        const errorElement = document.getElementById(`msgError${campo.id.charAt(0).toUpperCase() + campo.id.slice(1)}`);
+        const errorElement = campo.closest('.has-validation').querySelector('.invalid-feedback');
+        
+        // Limpiar errores anteriores
+        campo.classList.remove('is-invalid');
         
         if (!value) {
             campo.classList.add('is-invalid');
@@ -81,13 +84,13 @@ document.addEventListener('DOMContentLoaded', function() {
             return false;
         }
         
-        campo.classList.remove('is-invalid');
-        errorElement.textContent = "";
         return true;
     }
 
     // Añadir event listeners
     const form = document.querySelector('form');
+    
+    // Validación en tiempo real
     Object.keys(config).forEach(fieldId => {
         const campo = document.getElementById(fieldId);
         if (campo) {
@@ -103,6 +106,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Validar al enviar el formulario
     form.addEventListener('submit', function(event) {
         let esValido = true;
+        form.classList.add('was-validated');
         
         Object.keys(config).forEach(fieldId => {
             const campo = document.getElementById(fieldId);
@@ -113,11 +117,12 @@ document.addEventListener('DOMContentLoaded', function() {
         
         if (!esValido) {
             event.preventDefault();
-            // Enfocar el primer campo con error
+            event.stopPropagation();
+            
             const primerError = form.querySelector('.is-invalid');
             if (primerError) {
                 primerError.focus();
             }
         }
-    });
+    }, false);
 });

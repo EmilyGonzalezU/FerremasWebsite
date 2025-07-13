@@ -10,76 +10,100 @@
                     <p class="text-muted">Completa el formulario para crear tu cuenta</p>
                 </div>
                 
-                <form method="post">
+                <form method="post" class="needs-validation" novalidate>
                     {% csrf_token %}
                     <div class="row">
                         <div class="col-md-6 mb-3">
-                            <label for="nombre" class="form-label fw-semibold" style="color: #131a55;">Nombre</label>
-                            <div class="input-group">
+                            <label for="id_nombre" class="form-label fw-semibold" style="color: #131a55;">Nombre</label>
+                            <div class="input-group has-validation">
                                 <span class="input-group-text" style="background-color: #131a55; color: white;">
                                     <i class="bi bi-person-fill"></i>
                                 </span>
                                 {{ form.nombre }}
+                                <div class="invalid-feedback">
+                                    {% for error in form.nombre.errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </div>
                             </div>
-                            <div class="invalid-feedback" id="msgErrorNom"></div>
                         </div>
                         
                         <div class="col-md-6 mb-3">
-                            <label for="apellido" class="form-label fw-semibold" style="color: #131a55;">Apellido</label>
-                            <div class="input-group">
+                            <label for="id_apellido" class="form-label fw-semibold" style="color: #131a55;">Apellido</label>
+                            <div class="input-group has-validation">
                                 <span class="input-group-text" style="background-color: #131a55; color: white;">
                                     <i class="bi bi-person-fill"></i>
                                 </span>
                                 {{ form.apellido }}
+                                <div class="invalid-feedback">
+                                    {% for error in form.apellido.errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </div>
                             </div>
-                            <div class="invalid-feedback" id="msgErrorAp"></div>
                         </div>
                     </div>
                     
                     <div class="mb-3">
-                        <label for="email" class="form-label fw-semibold" style="color: #131a55;">Correo Electrónico</label>
-                        <div class="input-group">
+                        <label for="id_email" class="form-label fw-semibold" style="color: #131a55;">Correo Electrónico</label>
+                        <div class="input-group has-validation">
                             <span class="input-group-text" style="background-color: #131a55; color: white;">
                                 <i class="bi bi-envelope-fill"></i>
                             </span>
                             {{ form.email }}
+                            <div class="invalid-feedback">
+                                {% for error in form.email.errors %}
+                                    {{ error }}
+                                {% endfor %}
+                            </div>
                         </div>
-                        <div class="invalid-feedback" id="msgErrorMail"></div>
                     </div>
                     
                     <div class="row">
                         <div class="col-md-6 mb-3">
-                            <label for="telefono" class="form-label fw-semibold" style="color: #131a55;">Teléfono</label>
-                            <div class="input-group">
+                            <label for="id_telefono" class="form-label fw-semibold" style="color: #131a55;">Teléfono</label>
+                            <div class="input-group has-validation">
                                 <span class="input-group-text" style="background-color: #131a55; color: white;">
                                     <i class="bi bi-telephone-fill"></i>
                                 </span>
                                 {{ form.telefono }}
+                                <div class="invalid-feedback">
+                                    {% for error in form.telefono.errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </div>
                             </div>
-                            <div class="invalid-feedback" id="msgErrorTel"></div>
                         </div>
                         
                         <div class="col-md-6 mb-3">
-                            <label for="rut" class="form-label fw-semibold" style="color: #131a55;">RUT</label>
-                            <div class="input-group">
+                            <label for="id_rut" class="form-label fw-semibold" style="color: #131a55;">RUT</label>
+                            <div class="input-group has-validation">
                                 <span class="input-group-text" style="background-color: #131a55; color: white;">
                                     <i class="bi bi-person-vcard-fill"></i>
                                 </span>
                                 {{ form.rut }}
+                                <div class="invalid-feedback">
+                                    {% for error in form.rut.errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </div>
                             </div>
-                            <div class="invalid-feedback" id="msgErrorRUT"></div>
                         </div>
                     </div>
                     
                     <div class="mb-4">
-                        <label for="pass" class="form-label fw-semibold" style="color: #131a55;">Contraseña</label>
-                        <div class="input-group">
+                        <label for="id_pass" class="form-label fw-semibold" style="color: #131a55;">Contraseña</label>
+                        <div class="input-group has-validation">
                             <span class="input-group-text" style="background-color: #131a55; color: white;">
                                 <i class="bi bi-key-fill"></i>
                             </span>
                             {{ form.contrasena }}
+                            <div class="invalid-feedback">
+                                {% for error in form.contrasena.errors %}
+                                    {{ error }}
+                                {% endfor %}
+                            </div>
                         </div>
-                        <div class="invalid-feedback" id="msgErrorPass"></div>
                     </div>
                     
                     <button class="btn w-100 py-2 fw-bold shadow-sm mb-3" 

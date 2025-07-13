@@ -6,20 +6,42 @@ from .models import PerfilUsuario
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import logout
 
-def registro_usuario(request):
+def registro(request):
     if request.method == 'POST':
         form = RegistroUsuarioForm(request.POST)
         if form.is_valid():
-            form.save()
-            return redirect('registro')
+            user = form.save()
+            return redirect('inicio')
     else:
         form = RegistroUsuarioForm()
-    return render(request, 'usuarios/registro.html', {'form': form})
+    
+    return render(request, 'tu_template.html', {
+        'form': form,
+        'form_class': 'was-validated' if request.method == 'POST' else ''
+    })
+from django.shortcuts import render, redirect
+from django.contrib.auth import authenticate, login
+from django.contrib import messages
+from .forms import LoginForm  # Asegúrate de tener este formulario
 
-def inicio(request):
-    if not request.session.get('user_nombre'):
-        return redirect('inicio')  
-    return render(request, 'usuarios/usuario.html')
+def inicio_sesion(request):
+    if request.method == 'POST':
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            email = form.cleaned_data['email']
+            password = form.cleaned_data['password']
+            user = authenticate(request, username=email, password=password)
+            
+            if user is not None:
+                login(request, user)
+                return redirect('pagina_principal')  # Redirige a tu página principal
+            else:
+                messages.error(request, "Correo electrónico o contraseña incorrectos")
+        # Si el formulario no es válido, se mostrarán los errores automáticamente
+    else:
+        form = LoginForm()
+    
+    return render(request, 'tu_template_login.html', {'form': form})
 
 @csrf_exempt
 def login_view(request):
