@@ -6,7 +6,7 @@ from .models import PerfilUsuario
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import logout
 
-def registro(request):
+def registro_usuario(request):
     if request.method == 'POST':
         form = RegistroUsuarioForm(request.POST)
         if form.is_valid():
